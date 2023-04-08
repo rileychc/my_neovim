@@ -1,0 +1,11 @@
+{
+    "lr": {
+        "prefix": "lr",
+        "body": [
+            "return{",
+            "\t$0",
+            "}"
+        ],
+        "description": " "
+    }
+}
