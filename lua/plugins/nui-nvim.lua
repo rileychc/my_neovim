@@ -1,5 +1,5 @@
-return 
+return
 {
--- ui components
-{ "MunifTanjim/nui.nvim", lazy = true },
+    -- ui components
+    { "MunifTanjim/nui.nvim", lazy = true },
 }

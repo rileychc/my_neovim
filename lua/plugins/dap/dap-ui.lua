@@ -1,3 +1,4 @@
+
 local opts = {
 
     icons = { expanded = "▾", collapsed = "▸" ,circular="↺"},
@@ -51,24 +52,15 @@ local opts = {
         max_type_length = nil, -- Can be integer or nil.
         max_value_lines = 100, -- Can be integer or nil.
     },
-    enabled = true,
-    enable_commands = true,
-    highlight_changed_variables = true,
-    highlight_new_as_changed = false,
-    show_stop_reason = true,
-    commented = false,
-    only_first_definition = true,
-    all_references = false,
-    filter_references_pattern = '<module',
-    virt_text_pos = 'eol',
-    all_frames = false,
-    virt_lines = false,
-    virt_text_win_col = nil
+
 }
+
 
 return {
     "rcarriga/nvim-dap-ui",
     config = function()
+
+
         local dap, dapui = require("dap"), require("dapui")
         dapui.setup(opts)
 
@@ -84,9 +76,6 @@ return {
         dap.listeners.before.event_terminated["dapui_config"] = debug_close
         dap.listeners.before.event_exited["dapui_config"] = debug_close
         dap.listeners.before.disconnect["dapui_config"] = debug_close
-   
-
-
 
     local dap_breakpoint_color = {
         breakpoint = {

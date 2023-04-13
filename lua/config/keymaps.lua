@@ -14,7 +14,8 @@ local function map(mode, lhs, rhs, opts)
 end
 
 --paste over  currently selected text without yanking it
-map("v","p",'"_dP',{silent=true})
+map("v", "p", '"_dP', { silent = true })
+
 
 -- better up/down
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -34,8 +35,8 @@ map("n", "<A-]>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width
 
 -- Move Lines
 --移动行
-map("v", "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map({ "n", "v", "o" }, "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+map({ "n", "v", "o" }, "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 map({ "n", "v", "o" }, "<S-j>", "5j")
 map({ "n", "v", "o" }, "<S-k>", "5k")
@@ -58,8 +59,9 @@ map("n", "<A-6>", "<cmd>BufferLineGoToBuffer 6<CR>")
 map("n", "<A-7>", "<cmd>BufferLineGoToBuffer 7<CR>")
 map("n", "<A-8>", "<cmd>BufferLineGoToBuffer 8<CR>")
 map("n", "<A-9>", "<cmd>BufferLineGoToBuffer 9<CR>")
-map('n', '<leader>cc', ':<C-u>execute "normal!" v:count1 . "gcc"<CR>', { noremap = true })
-map('x', '<leader>cc', ':<C-u>lua vim.api.nvim_command("CommentToggle")<CR>', { noremap = true })
+--无法使用
+-- map('n', '<leader>cc', ':<C-u>execute "normal!" v:count1 . "gcc"<CR>', { noremap = true })
+-- map('x', '<leader>cc', ':<C-u>lua vim.api.nvim_command("CommentToggle")<CR>', { noremap = true })
 
 -- -- buffers
 if Util.has("bufferline.nvim") then
@@ -177,7 +179,7 @@ vim.api.nvim_create_autocmd("FileType", {
             0,
             "n",
             "<A-S-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=gcc17 -Wshadow -Wall  % -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
+            "<ESC>:w<CR>:split<CR>:te g++ -std=gcc17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
             { silent = true, noremap = true }
         )
     end,
@@ -188,7 +190,7 @@ vim.api.nvim_create_autocmd("FileType", {
             0,
             "n",
             "<A-S-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=c++17 -Wshadow -Wall  % -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
+            "<ESC>:w<CR>:split<CR>:te g++ -std=c++17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out  % -g -I ./include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i", --./src/*.cpp
             { silent = true, noremap = true }
         )
     end,
@@ -201,7 +203,7 @@ vim.api.nvim_create_autocmd("FileType", {
             0,
             "n",
             "<A-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=gcc17 -Wshadow -Wall -o a.out % -g -I../include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ./a.out<CR>i", --%:t:r
+            "<ESC>:w<CR>:split<CR>:te g++ -std=gcc17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/   -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files//a.out<CR>i", --%:t:r
             { silent = true, noremap = true }
         )
     end,
@@ -212,7 +214,7 @@ vim.api.nvim_create_autocmd("FileType", {
             0,
             "n",
             "<A-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=c++17 -Wshadow -Wall -o a.out % -g -I../include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ./a.out<CR>i\n",
+            "<ESC>:w<CR>:split<CR>:te g++ -std=c++17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out %  -g -I ./include/   -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files/a.out<CR>i\n", --
             { silent = true, noremap = true }
         )
     end,

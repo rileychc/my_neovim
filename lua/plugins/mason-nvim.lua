@@ -1,88 +1,44 @@
 return {
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      table.insert(opts.ensure_installed, "prettierd")
-    end,
-  },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    --opts = function(_, opts)
-    -- local nls = require("null-ls")
-    -- table.insert(opts.sources, nls.builtins.formatting.prettierd)
-    opts = function()
-      local M = {}
-
-      function M.pre() end
-
-      function M.post()
-        local nls = require("null-ls")
-        local bt = nls.builtins
-        nls.setup({
-          sources = {
-            -- c/c++
-            bt.formatting.clang_format,
-            bt.diagnostics.cppcheck,
-
-            -- python
-            bt.formatting.ruff,
-            bt.diagnostics.ruff,
-
-            -- golang
-            bt.formatting.gofmt,
-            bt.formatting.goimports,
-            bt.diagnostics.golangci_lint,
-
-            -- lua
-            bt.formatting.stylua,
-            bt.diagnostics.luacheck,
-
-            -- javascript / css / json / yaml
-            bt.formatting.prettier,
-            bt.diagnostics.eslint,
-            bt.diagnostics.stylelint,
-            bt.diagnostics.jsonlint,
-            bt.diagnostics.yamllint,
-
-            -- shell
-            bt.formatting.shfmt.with({
-              extra_filetypes = { "zsh" },
-            }),
-            bt.diagnostics.shellcheck,
-
-            -- markdown
-            bt.diagnostics.markdownlint,
-
-            -- other
-            bt.diagnostics.cspell.with({
-              extra_args = { "--config", vim.fn.expand("~/.config/nvim/neo-cspell.yaml") },
-              diagnostics_postprocess = function(diagnostic)
-                diagnostic.severity = vim.diagnostic.severity.HINT
-              end,
-            }),
-          },
-          should_attach = function(bufnr)
-            local file_type = vim.api.nvim_buf_get_option(bufnr, "filetype")
-            if vim.tbl_contains({ "NvimTree" }, file_type) then
-              return false
+    -- cmdline tools and lsp servers
+    {
+        "williamboman/mason.nvim",
+        cmd = "Mason",
+        keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+        opts = {
+            ensure_installed = {
+                "stylua", --lua
+                "shellcheck",--shell
+                "shfmt",--shell
+                "flake8",--python
+                "clangd",
+                "codelldb",
+                "cmake-language-server",
+                "prettierd", --代码格式化
+            },
+        },
+        ---@param opts MasonSettings | {ensure_installed: string[]}
+        config = function(_, opts)
+            require("mason").setup(opts)
+            local mr = require("mason-registry")
+            local function ensure_installed()
+                for _, tool in ipairs(opts.ensure_installed) do
+                    local p = mr.get_package(tool)
+                    if not p:is_installed() then
+                        p:install()
+                    end
+                end
             end
-
-            local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
-            if buftype ~= "" then
-              return false
+            if mr.refresh then
+                mr.refresh(ensure_installed)
+            else
+                ensure_installed()
             end
-
-            return true
-          end,
-        })
-
-        -- disable all diagnostics capacity at init
-        nls.disable({ method = nls.methods.DIAGNOSTICS })
-      end
-
-      function M.keybind() end
-
-      return M
-    end,
-  },
+        end,
+    },
 }
+
+
+
+       
+
+
