@@ -5,6 +5,7 @@ return {
         "folke/tokyonight.nvim",
         lazy = true,
         opts = { style = "moon" },
+        priority=1000,
     },
 
     -- catppuccin
@@ -14,4 +15,9 @@ return {
         name = "catppuccin",
     },
     { "ellisonleao/gruvbox.nvim" },
+    {
+        "olimorris/onedarkpro.nvim",
+        priority = 1000 -- Ensure it loads first
+      },
+
 }

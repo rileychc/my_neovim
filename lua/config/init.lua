@@ -5,9 +5,11 @@ local M = {}
 M.lazy_version = ">=9.1.0"
 local defaults = {
     colorscheme = function()
-        require("gruvbox").load()
-        -- require("tokyonight").load()
+        -- require("gruvbox").load()
+        require("tokyonight").load()
         -- require("catppuccin").load()
+        -- require("onedarkpro").load()
+        
     end,
     -- load the default settings
     defaults = {

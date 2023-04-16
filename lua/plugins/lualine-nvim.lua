@@ -4,8 +4,16 @@ return {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
         opts = function(plugin)
-            local icons = require("config").icons
-
+            local icons = {
+                -- cmp = require("util").geticons("cmp", true),
+                diagnostics = require("util").geticons("diagnostics", true),
+                -- kind = require("util").geticons("kind", true),
+                -- type = require("util").geticons("type", true),
+                -- ui = require("util").geticons("ui", true),
+                git = require("util").geticons("git", true),
+            }
+            -- local icons = require("config").icons
+            -- local icons = require("util").geticons("ui",true)
             local function fg(name)
                 return function()
                     ---@type {foreground?:number}?
@@ -28,10 +36,11 @@ return {
                         {
                             "diagnostics",
                             symbols = {
-                                error = icons.diagnostics.Error,
-                                warn = icons.diagnostics.Warn,
-                                info = icons.diagnostics.Info,
-                                hint = icons.diagnostics.Hint,
+                               
+                                Error = icons.diagnostics.Error_alt,
+                                Warn = icons.diagnostics.Warning_alt,
+                                Info = icons.diagnostics.Information_alt,
+                                Hint = icons.diagnostics.Hint_alt,
                             },
                         },
                         {
@@ -75,9 +84,9 @@ return {
                         {
                             "diff",
                             symbols = {
-                                added = icons.git.added,
-                                modified = icons.git.modified,
-                                removed = icons.git.removed,
+                                added = icons.git.Add,
+                                modified = icons.git.Mod_alt,
+                                removed = icons.git.Remove,
                             },
                         },
                     },

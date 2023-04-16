@@ -1,11 +1,19 @@
 {
-  "fori": {
-    "prefix": "fori",
+  "c": {
+    "prefix": "c",
     "body": [
-      "for (${1:int} ${2:i} = ${3:0}; $2 < ${4:length}; ++$2) {",
-      "\t$0",
+      "#include <stdio.h>",
+      "",
+      "",
+      "int main(int argc, char *argv[]) {",
+      "",
+      "",
+      "\t$1",
+      "",
+      "\treturn 0;",
+      "",
       "}"
     ],
-    "description": "Code snippet for 'fori' loop"
+    "description": "c template"
   }
 }

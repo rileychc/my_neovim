@@ -1,6 +1,6 @@
 {
-    "lr": {
-        "prefix": "lr",
+    "re": {
+        "prefix": "re",
         "body": [
             "return{",
             "\t$0",

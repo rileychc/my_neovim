@@ -6,9 +6,7 @@ return {
         build = "source /usr/share/nvm/init-nvm.sh; nvm use v18; cd app && npm install",
         ft = { "markdown" },
         keys = {
-            { "<leader>mp", "<cmd>MarkdownPreview<cr>",       desc = "MarkdownPreview" },
-            { "<leader>mt", "<cmd>MarkdownPreviewToggle<cr>", desc = "MarkdownPreviewToggle" },
-            { "<leader>ms", "<cmd>MarkdownPreviewStop<cr>",   desc = "MarkdownPreviewStop" },
+            { "<leader>md", "<cmd>MarkdownPreviewToggle<cr>", desc = "MarkdownPreviewToggle" },
         },
         config = function()
             -- set to 1, nvim will open the preview window after entering the markdown buffer

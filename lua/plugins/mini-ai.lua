@@ -3,10 +3,10 @@ return {
     {
         "echasnovski/mini.ai",
         --不知道有啥用
-        -- keys = {
-        --   { "a", mode = { "x", "o" } },
-        --   { "i", mode = { "x", "o" } },
-        -- },
+        keys = {
+          { "a", mode = { "x", "o" } },
+          { "i", mode = { "x", "o" } },
+        },
         event = "VeryLazy",
         dependencies = { "nvim-treesitter-textobjects" },
         opts = function()

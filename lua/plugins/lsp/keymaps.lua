@@ -10,28 +10,78 @@ function M.get()
         ---@class PluginLspKeys
         -- stylua: ignore
         M._keys = {
-            { "gcd",        vim.diagnostic.open_float,                 desc = "Line Diagnostics" },
-            { "<leader>Lf", "<cmd>LspInfo<cr>",                        desc = "Lsp Info" },
-            { "gD",         "<cmd>Telescope lsp_definitions<cr>",      desc = "Goto Definition",     has = "definition" },
-            { "gr",         "<cmd>Telescope lsp_references<cr>",       desc = "References" },
-            { "gd",         vim.lsp.buf.declaration,                   desc = "Goto Declaration" },
-            { "gI",         "<cmd>Telescope lsp_implementations<cr>",  desc = "Goto Implementation" },
-            { "gt",         "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
-            { "gk",         vim.lsp.buf.hover,                         desc = "Hover" },
-            { "gK",         vim.lsp.buf.signature_help,                desc = "Signature Help",      has =
-            "signatureHelp" },
-            { "<c-k>",      vim.lsp.buf.signature_help,                mode = "i",                   desc =
-            "Signature Help",                                                                                                   has =
-            "signatureHelp" },
-            { "]g",         M.diagnostic_goto(true),                   desc = "Next Diagnostic" },
-            { "[g",         M.diagnostic_goto(false),                  desc = "Prev Diagnostic" },
-            { "]e",         M.diagnostic_goto(true, "ERROR"),          desc = "Next Error" },
-            { "[e",         M.diagnostic_goto(false, "ERROR"),         desc = "Prev Error" },
-            { "]w",         M.diagnostic_goto(true, "WARN"),           desc = "Next Warning" },
-            { "[w",         M.diagnostic_goto(false, "WARN"),          desc = "Prev Warning" },
-            { "gF",         format,                                    desc = "Format Document", has ="documentFormatting" },
-            { "gF",         format,                                    desc = "Format Range",        mode = "v",has ="documentRangeFormatting" },
-            { "ga",         vim.lsp.buf.code_action,                   desc = "Code Action",         mode = { "n", "v" },has ="codeAction" },
+            -- { "<leader>Lf", "<cmd>LspInfo<cr>",                 desc = "Lsp Info" },
+            { "gr",    "<cmd>Lspsaga lsp_finder<CR>",                 desc = "References",                 mode = "n" },
+            { "<F2>",  "<cmd>Lspsaga rename<CR>",                     desc = "Rename",                     mode = "n" },
+            { "<F14>", "<cmd>Lspsaga rename ++project<CR>",           desc = "Rename in project",          mode = "n" },
+            { "gd",    "<cmd>Lspsaga peek_definition<CR>",            desc = "Peek  Definition",           mode = "n" },
+            { "gD",    "<cmd>Lspsaga goto_definition<CR>",            desc = "Goto Definition",            mode = "n" },
+            { "gt",    "<cmd>Lspsaga peek_type_definition<CR>",       desc = "Peek Type Definition",       mode = "n" },
+            { "gT",    "<cmd>Lspsaga goto_type_definition<CR>",       desc = "Goto Type Definition",       mode = "n" },
+            { "gsl",   "<cmd>Lspsaga show_line_diagnostics<CR>",      desc = "Show line diagnostics",      mode = "n" },
+            { "gsb",   "<cmd>Lspsaga show_buf_diagnostics<CR>",       desc = "Show buffer diagnostics",    mode = "n" },
+            { "gsw",   "<cmd>Lspsaga show_workspace_diagnostics<CR>", desc = "Show workspace diagnostics", mode = "n" },
+            { "gsc",   "<cmd>Lspsaga show_cursor_diagnostics<CR>",    desc = "Show cursor diagnostics",    mode = "n" },
+            { "[g",    "<cmd>Lspsaga diagnostic_jump_prev<CR>",       desc = "Next Diagnostic",            mode = "n" },
+            { "]g",    "<cmd>Lspsaga diagnostic_jump_next<CR>",       desc = "Prev Diagnostic",            mode = "n" },
+            {
+                "[e",
+                function()
+                    require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+                end,
+                desc = "Prev Error"
+            },
+            {
+                "]e",
+                function()
+                    require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+                end,
+                desc = "Next Error"
+            },
+            {
+                "[w",
+                function()
+                    require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.WARN })
+                end,
+                desc = "Prev Warning"
+            },
+            {
+                "]w",
+                function()
+                    require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.WARN })
+                end,
+                desc = "Next Warning"
+            },
+            { "go",  "<cmd>Lspsaga outline<CR>",          desc = "Toggle outline",     mode = "n" },
+            { "gk",  "<cmd>Lspsaga hover_doc<CR>",        desc = "Hover",              mode = "n" },
+            { "gK",  "<cmd>Lspsaga hover_doc ++keep<CR>", desc = "Keep Hover",         mode = "n" },
+            { "gci", "<cmd>Lspsaga incoming_calls<CR>",   desc = "Call in hierarchy",  mode = "n" },
+            { "gco", "<cmd>Lspsaga outgoing_calls<CR>",   desc = "Call out hierarchy", mode = "n" },
+            {
+                "<A-k>",
+                vim.lsp.buf.signature_help,
+                mode = "i",
+                desc =
+                "Signature Help",
+                has =
+                "signatureHelp"
+            },
+            { "gF", format, desc = "Format Document", has = "documentFormatting" },
+            {
+                "gF",
+                format,
+                desc = "Format Range",
+                mode = "v",
+                has =
+                "documentRangeFormatting"
+            },
+            {
+                "ga",
+                "<cmd>Lspsaga code_action<CR>",
+                desc = "Code action",
+                mode = { "n",
+                    "v" }
+            },
             {
                 "gA",
                 function()
@@ -48,20 +98,6 @@ function M.get()
                 has = "codeAction",
             }
         }
-        if require("util").has("inc-rename.nvim") then
-            M._keys[#M._keys + 1] = {
-                "<F2>",
-                function()
-                    require("inc_rename")
-                    return ":IncRename " .. vim.fn.expand("<cword>")
-                end,
-                expr = true,
-                desc = "Rename",
-                has = "rename",
-            }
-        else
-            M._keys[#M._keys + 1] = { "<F2>", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
-        end
     end
     return M._keys
 end

@@ -44,6 +44,7 @@ map({ "n", "v", "o" }, "<S-h>", "5h")
 map({ "n", "v", "o" }, "<S-l>", "5l")
 
 map({ "n", "v", "o" }, "U", "<C-r>")
+map( "i" , "jk", "<Esc>")
 map({ "n", "v", "o" }, "e", "$")
 map({ "n", "v", "o" }, "E", "^")
 map({ "n", "v", "o" }, "<A-c>", "y")
@@ -153,7 +154,7 @@ end
 
 -- floating terminal
 map("n", "<A-|>", function() Util.float_term(nil, { cwd = Util.get_root() }) end, { desc = "Terminal (root dir)" })
-map("n", "<A-\\>", function() Util.float_term() end, { desc = "Terminal (cwd)" })
+map({"n","t"}, "<A-\\>", function() Util.float_term() end, { desc = "Terminal (cwd)" })
 map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
 -- windows
