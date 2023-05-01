@@ -1,5 +1,6 @@
 return {
-    -- lsp symbol navigation for lualine
+    --  这个插件可以让你更方便地导航 NeoVim 中的文件。它提供了一些命令和快捷键，帮助你快速定位到指定的文件或行号。
+    --cmp图标
     {
         "SmiteshP/nvim-navic",
         lazy = true,
@@ -17,8 +18,7 @@ return {
                 highlight = true,
                 depth_limit = 5,
                 -- icons = require("config").icons.kinds,
-               icons= require("util").geticons("kind", true),
-
+                icons = require("util").geticons("kind", true),
             }
         end,
     },

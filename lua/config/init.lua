@@ -9,7 +9,6 @@ local defaults = {
         require("tokyonight").load()
         -- require("catppuccin").load()
         -- require("onedarkpro").load()
-        
     end,
     -- load the default settings
     defaults = {

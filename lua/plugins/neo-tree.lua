@@ -2,6 +2,7 @@ return {
     -- file explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
+        dependencies = { "MunifTanjim/nui.nvim", lazy = true }, --依赖窗口插件
         cmd = "Neotree",
         keys = {
             {
@@ -18,7 +19,7 @@ return {
                 end,
                 desc = "Explorer NeoTree (cwd)",
             },
-    
+
         },
         deactivate = function()
             vim.cmd([[Neotree close]])

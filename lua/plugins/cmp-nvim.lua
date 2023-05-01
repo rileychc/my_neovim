@@ -5,11 +5,11 @@ return {
         version = false, -- last release is way too old
         event = "InsertEnter",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-emoji", --可以试试
+            "hrsh7th/cmp-nvim-lsp",     --LSP 客户端，提供了对 LSP 服务器的支持
+            "hrsh7th/cmp-buffer",       --提供了对当前缓冲区内的文本进行补全的功能，包括代码、单词等。
+            "hrsh7th/cmp-path",         --提供了对文件路径进行补全的功能。
+            "saadparwaiz1/cmp_luasnip", --支持 LuaSnip，一个基于 Lua 的代码片段工具，提供了对代码片段的补全功能。
+            -- "hrsh7th/cmp-emoji", --提供了对表情符号进行补全的功能，用于更快捷地插入表情符号
         },
         opts = function()
             local has_words_before = function()
@@ -21,11 +21,10 @@ return {
 
             local luasnip = require("luasnip")
             local cmp = require("cmp")
-
             cmp.setup({
                 mapping = {
-                    ["<A-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<A-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<Tab>"] = cmp.mapping.complete(),
@@ -74,7 +73,7 @@ return {
                     { name = "luasnip" },
                     { name = "buffer" },
                     { name = "path" },
-                    { name = "emoji" },
+                    -- { name = "emoji" },
                 }),
                 formatting = {
                     format = function(_, item)

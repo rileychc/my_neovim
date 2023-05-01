@@ -6,14 +6,16 @@ return {
         keys = { { "<leader>Lm", "<cmd>Mason<cr>", desc = "Mason" } },
         opts = {
             ensure_installed = {
-                "stylua", --lua
-                "shellcheck",--shell
-                "shfmt",--shell
-                "flake8",--python
+                "stylua",  --lua
+                "lua-language-server",
+                "pyright", --python
                 "clangd",
                 "codelldb",
                 "cmake-language-server",
-                "prettierd", --代码格式化
+                "prettierd",  --代码格式化
+                "flake8",     --python
+                "shellcheck", --shell
+                "shfmt",      --shell
             },
         },
         ---@param opts MasonSettings | {ensure_installed: string[]}
@@ -36,9 +38,3 @@ return {
         end,
     },
 }
-
-
-
-       
-
-

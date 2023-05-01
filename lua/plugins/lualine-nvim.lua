@@ -1,19 +1,14 @@
 return {
-    -- statusline
+    -- 底部状态栏
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
         opts = function(plugin)
             local icons = {
-                -- cmp = require("util").geticons("cmp", true),
                 diagnostics = require("util").geticons("diagnostics", true),
-                -- kind = require("util").geticons("kind", true),
-                -- type = require("util").geticons("type", true),
-                -- ui = require("util").geticons("ui", true),
                 git = require("util").geticons("git", true),
             }
-            -- local icons = require("config").icons
-            -- local icons = require("util").geticons("ui",true)
+
             local function fg(name)
                 return function()
                     ---@type {foreground?:number}?
@@ -36,7 +31,6 @@ return {
                         {
                             "diagnostics",
                             symbols = {
-                               
                                 Error = icons.diagnostics.Error_alt,
                                 Warn = icons.diagnostics.Warning_alt,
                                 Info = icons.diagnostics.Information_alt,

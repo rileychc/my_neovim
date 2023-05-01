@@ -1,5 +1,5 @@
 return {
-    -- indent guides for Neovim
+    -- 缩进垂直线
     {
         "lukas-reineke/indent-blankline.nvim",
         event = { "BufReadPost", "BufNewFile" },

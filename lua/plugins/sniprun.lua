@@ -1,6 +1,7 @@
 return
 { {
     "michaelb/sniprun",
+    keys={{"<S-r>","<cmd>SnipRun<CR>",desc="SnipRun"},},
     config = function()
         require("sniprun").setup({
             selected_interpreters = {}, -- " use those instead of the default for the current filetype

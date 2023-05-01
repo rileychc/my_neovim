@@ -1,5 +1,5 @@
 return {
-    -- bufferline
+    -- 这个插件可以让你更好地管理 NeoVim 中的 buffer。它会在窗口底部显示所有打开的 buffer，你可以使用快捷键来切换不同的 buffer。
     {
         "akinsho/bufferline.nvim",
         event = "VeryLazy",
@@ -26,6 +26,15 @@ return {
                     },
                 },
             },
+        },
+    },
+    -- 删除buffer缓存区
+    {
+        "echasnovski/mini.bufremove",
+        -- stylua: ignore
+        keys = {
+            { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+            { "<leader>bD", function() require("mini.bufremove").delete(0, true) end,  desc = "Delete Buffer (Force)" },
         },
     },
 }

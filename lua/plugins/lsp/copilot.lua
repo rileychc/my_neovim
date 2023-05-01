@@ -3,7 +3,7 @@ return {
     -- copilot  暂时用不上
     {
         "zbirenbaum/copilot.lua",
-        enabled=false,
+        enabled = false,
         cmd = "Copilot",
         build = ":Copilot auth",
         opts = {
@@ -60,7 +60,7 @@ return {
     -- copilot cmp source
     -- {
     --     "nvim-cmp",
-    
+
     --     dependencies = {
     --         {
     --             "zbirenbaum/copilot-cmp",

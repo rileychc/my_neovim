@@ -1,8 +1,6 @@
 local Util = require("util")
 return {
-
-
-    -- todo comments
+    -- 跳到 //FIX:  or  Note: 等注释
     {
         "folke/todo-comments.nvim",
         cmd = { "TodoTrouble", "TodoTelescope" },

@@ -1,5 +1,5 @@
 return {
-    -- animations
+    -- 这个插件可以让你在 NeoVim 中添加动画效果。它可以帮助你更好地了解当前的编辑环境，增加使用体验。
     {
         "echasnovski/mini.animate",
         event = "VeryLazy",

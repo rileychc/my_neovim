@@ -12,7 +12,6 @@ return {
                 if not vim.tbl_contains(vim.opt.rtp:get(), snippet_path) then
                     vim.opt.rtp:append(snippet_path)
                 end
-
                 require("luasnip.loaders.from_vscode").lazy_load()
             end,
         },
@@ -20,17 +19,5 @@ return {
             history = true,
             delete_check_events = "TextChanged",
         },
-        -- stylua: ignore
-        -- keys = {  --被我注释
-        --   {
-        --     "<tab>",
-        --     function()
-        --       return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        --     end,
-        --     expr = true, silent = true, mode = "i",
-        --   },
-        --   { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-        --   { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-        -- },
     },
 }

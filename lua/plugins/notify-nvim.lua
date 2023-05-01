@@ -1,5 +1,5 @@
 return {
-    -- Better `vim.notify()`
+    -- 浮动通知窗口
     {
         "rcarriga/nvim-notify",
         keys = {

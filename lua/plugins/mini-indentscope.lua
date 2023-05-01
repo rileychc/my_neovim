@@ -1,5 +1,5 @@
 return {
-    -- active indent guide and indent text objects
+    -- 这个插件可以让你更好地看到代码的缩进结构。它会在每个缩进层级的前面添加一个小箭头，让你更容易看到代码的层次结构。
     {
         "echasnovski/mini.indentscope",
         version = false, -- wait till new 0.7.0 release to put it back on semver

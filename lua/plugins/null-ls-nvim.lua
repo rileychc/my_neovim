@@ -1,7 +1,7 @@
 return
-{
+{                                          -- 这个插件可以让你更方便地在 NeoVim 中使用 Null-ls。它提供了一些高级的配置和使用功能，可以帮助你更好地定制和优化 Null-ls 的使用。
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "jose-elias-alvarez/null-ls.nvim", --代码建议/报错
         event = { "BufReadPre", "BufNewFile" },
         dependencies = { "mason.nvim" },
         lazy = true,

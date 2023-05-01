@@ -1,6 +1,6 @@
 return {
 
-    -- references
+    -- 高亮显示当前变量
     {
         "RRethy/vim-illuminate",
         event = { "BufReadPost", "BufNewFile" },

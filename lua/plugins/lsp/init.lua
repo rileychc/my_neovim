@@ -19,6 +19,7 @@ local function set_sidebar_icons()
     end
 end
 return {
+    { "nvim-tree/nvim-web-devicons", lazy = true }, --lspsaga 依赖
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
@@ -61,8 +62,8 @@ return {
             -- LSP Server Settings
             ---@type lspconfig.options
             servers = {
-                clangd = { settings = { offsetEncoding = "utf-16" } }, --我加上的
-                pyright = {},                                          --加上
+                -- clangd = { settings = { offsetEncoding = "utf-16" } }, --我加上的
+                pyright = {}, --加上
                 jsonls = {
                     -- lazy-load schemastore when needed
                     on_new_config = function(new_config)
@@ -176,17 +177,13 @@ return {
     {
         "glepnir/lspsaga.nvim",
         event = "LspAttach",
-        dependencies = { { "nvim-web-devicons" } },
+        dependencies = { "nvim-web-devicons" }, -- 使用的是本地图标
         config = function()
             set_sidebar_icons()
             require("lspsaga").setup({
                 preview = {
                     lines_above = 1,
                     lines_below = 17,
-                },
-                scroll_preview = {
-                    scroll_down = "<C-j>",
-                    scroll_up = "<C-k>",
                 },
                 request_timeout = 3000,
                 finder = {

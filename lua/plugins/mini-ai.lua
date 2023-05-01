@@ -1,11 +1,12 @@
 return {
-    -- better text-objects
+    -- 这个插件可以让你在 NeoVim 中使用 AI 模型来自动完成一些任务。例如，你可以使用它来自动识别代码中的语言，并选择相应的代码高亮方案。
     {
         "echasnovski/mini.ai",
+        lazy = true,
         --不知道有啥用
         keys = {
-          { "a", mode = { "x", "o" } },
-          { "i", mode = { "x", "o" } },
+            { "a", mode = { "x", "o" } },
+            { "i", mode = { "x", "o" } },
         },
         event = "VeryLazy",
         dependencies = { "nvim-treesitter-textobjects" },

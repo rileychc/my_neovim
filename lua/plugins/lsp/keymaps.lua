@@ -10,20 +10,98 @@ function M.get()
         ---@class PluginLspKeys
         -- stylua: ignore
         M._keys = {
-            -- { "<leader>Lf", "<cmd>LspInfo<cr>",                 desc = "Lsp Info" },
-            { "gr",    "<cmd>Lspsaga lsp_finder<CR>",                 desc = "References",                 mode = "n" },
-            { "<F2>",  "<cmd>Lspsaga rename<CR>",                     desc = "Rename",                     mode = "n" },
-            { "<F14>", "<cmd>Lspsaga rename ++project<CR>",           desc = "Rename in project",          mode = "n" },
-            { "gd",    "<cmd>Lspsaga peek_definition<CR>",            desc = "Peek  Definition",           mode = "n" },
-            { "gD",    "<cmd>Lspsaga goto_definition<CR>",            desc = "Goto Definition",            mode = "n" },
-            { "gt",    "<cmd>Lspsaga peek_type_definition<CR>",       desc = "Peek Type Definition",       mode = "n" },
-            { "gT",    "<cmd>Lspsaga goto_type_definition<CR>",       desc = "Goto Type Definition",       mode = "n" },
-            { "gsl",   "<cmd>Lspsaga show_line_diagnostics<CR>",      desc = "Show line diagnostics",      mode = "n" },
-            { "gsb",   "<cmd>Lspsaga show_buf_diagnostics<CR>",       desc = "Show buffer diagnostics",    mode = "n" },
-            { "gsw",   "<cmd>Lspsaga show_workspace_diagnostics<CR>", desc = "Show workspace diagnostics", mode = "n" },
-            { "gsc",   "<cmd>Lspsaga show_cursor_diagnostics<CR>",    desc = "Show cursor diagnostics",    mode = "n" },
-            { "[g",    "<cmd>Lspsaga diagnostic_jump_prev<CR>",       desc = "Next Diagnostic",            mode = "n" },
-            { "]g",    "<cmd>Lspsaga diagnostic_jump_next<CR>",       desc = "Prev Diagnostic",            mode = "n" },
+            { "<leader>Lf", "<cmd>LspInfo<cr>",                  desc = "Lsp Info" },
+            {
+                "gr",
+                "<cmd>Lspsaga lsp_finder<CR>",
+                desc = "References",
+                mode =
+                "n"
+            },
+            {
+                "<F2>",
+                "<cmd>Lspsaga rename<CR>",
+                desc = "Rename",
+                mode =
+                "n"
+            },
+            {
+                "<F14>",
+                "<cmd>Lspsaga rename ++project<CR>",
+                desc = "Rename in project",
+                mode =
+                "n"
+            },
+            {
+                "gd",
+                "<cmd>Lspsaga peek_definition<CR>",
+                desc = "Peek  Definition",
+                mode =
+                "n"
+            },
+            {
+                "gD",
+                "<cmd>Lspsaga goto_definition<CR>",
+                desc = "Goto Definition",
+                mode =
+                "n"
+            },
+            {
+                "gt",
+                "<cmd>Lspsaga peek_type_definition<CR>",
+                desc = "Peek Type Definition",
+                mode =
+                "n"
+            },
+            {
+                "gT",
+                "<cmd>Lspsaga goto_type_definition<CR>",
+                desc = "Goto Type Definition",
+                mode =
+                "n"
+            },
+            {
+                "gsl",
+                "<cmd>Lspsaga show_line_diagnostics<CR>",
+                desc = "Show line diagnostics",
+                mode =
+                "n"
+            },
+            {
+                "gsb",
+                "<cmd>Lspsaga show_buf_diagnostics<CR>",
+                desc = "Show buffer diagnostics",
+                mode =
+                "n"
+            },
+            {
+                "gsw",
+                "<cmd>Lspsaga show_workspace_diagnostics<CR>",
+                desc = "Show workspace diagnostics",
+                mode =
+                "n"
+            },
+            {
+                "gsc",
+                "<cmd>Lspsaga show_cursor_diagnostics<CR>",
+                desc = "Show cursor diagnostics",
+                mode =
+                "n"
+            },
+            {
+                "[g",
+                "<cmd>Lspsaga diagnostic_jump_prev<CR>",
+                desc = "Next Diagnostic",
+                mode =
+                "n"
+            },
+            {
+                "]g",
+                "<cmd>Lspsaga diagnostic_jump_next<CR>",
+                desc = "Prev Diagnostic",
+                mode =
+                "n"
+            },
             {
                 "[e",
                 function()
@@ -52,13 +130,13 @@ function M.get()
                 end,
                 desc = "Next Warning"
             },
-            { "go",  "<cmd>Lspsaga outline<CR>",          desc = "Toggle outline",     mode = "n" },
-            { "gk",  "<cmd>Lspsaga hover_doc<CR>",        desc = "Hover",              mode = "n" },
-            { "gK",  "<cmd>Lspsaga hover_doc ++keep<CR>", desc = "Keep Hover",         mode = "n" },
-            { "gci", "<cmd>Lspsaga incoming_calls<CR>",   desc = "Call in hierarchy",  mode = "n" },
-            { "gco", "<cmd>Lspsaga outgoing_calls<CR>",   desc = "Call out hierarchy", mode = "n" },
+            { "go",         "<cmd>Lspsaga outline<CR>",          desc = "Toggle outline",     mode = "n" },
+            { "gk",         "<cmd>Lspsaga hover_doc<CR>",        desc = "Hover",              mode = "n" },
+            { "gK",         "<cmd>Lspsaga hover_doc ++keep<CR>", desc = "Keep Hover",         mode = "n" },
+            { "gci",        "<cmd>Lspsaga incoming_calls<CR>",   desc = "Call in hierarchy",  mode = "n" },
+            { "gco",        "<cmd>Lspsaga outgoing_calls<CR>",   desc = "Call out hierarchy", mode = "n" },
             {
-                "<A-k>",
+                "<C-k>",
                 vim.lsp.buf.signature_help,
                 mode = "i",
                 desc =
@@ -82,21 +160,21 @@ function M.get()
                 mode = { "n",
                     "v" }
             },
-            {
-                "gA",
-                function()
-                    vim.lsp.buf.code_action({
-                        context = {
-                            only = {
-                                "source",
-                            },
-                            diagnostics = {},
-                        },
-                    })
-                end,
-                desc = "Source Action",
-                has = "codeAction",
-            }
+            -- {  --ga包含source
+            --     "gA",
+            --     function()
+            --         vim.lsp.buf.code_action({
+            --             context = {
+            --                 only = {
+            --                     "source",
+            --                 },
+            --                 diagnostics = {},
+            --             },
+            --         })
+            --     end,
+            --     desc = "Source Action",
+            --     has = "codeAction",
+            -- }
         }
     end
     return M._keys

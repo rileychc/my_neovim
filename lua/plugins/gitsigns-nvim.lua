@@ -1,5 +1,5 @@
 return {
-    -- git signs
+    -- 这个插件可以让你在 NeoVim 中显示 Git 仓库中文件的修改状态。它会在左侧的 gutter 中显示修改的行数，以及在代码中使用符号来表示修改的内容。
     {
         "lewis6991/gitsigns.nvim",
         event = { "BufReadPre", "BufNewFile" },
