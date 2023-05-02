@@ -8,11 +8,11 @@ return {
             mappings = {
                 -- Toggle comment (like `gcip` - comment inner paragraph) for both
                 -- Normal and Visual modes
-                comment = '<C-/>',
+                comment = '<A-/>',
                 -- Toggle comment on current line
-                comment_line = '<C-/>',
+                comment_line = '<A-/>',
                 -- Define 'comment' textobject (like `dgc` - delete whole comment block)
-                textobject = '<C-/>',
+                -- textobject = '<A-?>',
             },
             hooks = {
                 pre = function()

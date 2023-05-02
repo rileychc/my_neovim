@@ -2,15 +2,6 @@ return {
     -- 浮动通知窗口
     {
         "rcarriga/nvim-notify",
-        keys = {
-            {
-                "<leader>nc",
-                function()
-                    require("notify").dismiss({ silent = true, pending = true })
-                end,
-                desc = "Delete all Notifications",
-            },
-        },
         opts = {
             timeout = 3000,
             max_height = function()

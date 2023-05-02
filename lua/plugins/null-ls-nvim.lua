@@ -14,8 +14,6 @@ return
             function M.post()
                 local nls = require("null-ls")
                 local bt = nls.builtins
-
-
                 nls.setup({
                     root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
                     sources = {

@@ -6,16 +6,16 @@ return {
         opts = function()
             local dashboard = require("alpha.themes.dashboard")
 
-            -- local logo = [[
-            -- ██████   █████                   █████   █████  ███
-            -- ░░██████ ░░███                   ░░███   ░░███  ░░░
-            -- ░███░███ ░███   ██████   ██████  ░███    ░███  ████  █████████████
-            -- ░███░░███░███  ███░░███ ███░░███ ░███    ░███ ░░███ ░░███░░███░░███
-            -- ░███ ░░██████ ░███████ ░███ ░███ ░░███   ███   ░███  ░███ ░███ ░███
-            -- ░███  ░░█████ ░███░░░  ░███ ░███  ░░░█████░    ░███  ░███ ░███ ░███
-            -- █████  ░░█████░░██████ ░░██████     ░░███      █████ █████░███ █████
-            -- ░░░░░    ░░░░░  ░░░░░░   ░░░░░░       ░░░      ░░░░░ ░░░░░ ░░░ ░░░░░
-            -- ]]
+            local logo = [[
+            ██████   █████                   █████   █████  ███
+            ░░██████ ░░███                   ░░███   ░░███  ░░░
+            ░███░███ ░███   ██████   ██████  ░███    ░███  ████  █████████████
+            ░███░░███░███  ███░░███ ███░░███ ░███    ░███ ░░███ ░░███░░███░░███
+            ░███ ░░██████ ░███████ ░███ ░███ ░░███   ███   ░███  ░███ ░███ ░███
+            ░███  ░░█████ ░███░░░  ░███ ░███  ░░░█████░    ░███  ░███ ░███ ░███
+            █████  ░░█████░░██████ ░░██████     ░░███      █████ █████░███ █████
+            ░░░░░    ░░░░░  ░░░░░░   ░░░░░░       ░░░      ░░░░░ ░░░░░ ░░░ ░░░░░
+            ]]
 
             -- local logo = [[
             -- ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
@@ -25,26 +25,26 @@ return {
             -- ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║
             -- ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝
             -- ]]
-            local logo = [[
+    --         local logo = [[
 
-                           'c.
-                        ,xNMM.
-                      .OMMMMo
-                      OMMM0,
-            .;loddo:' loolloddol;.
-         cKMMMMMMMMMMNWMMMMMMMMMM0:
-        .KMMMMMMMMMMMMMMMMMMMMMMMWd.
-        XMMMMMMMMMMMMMMMMMMMMMMMX.
-       ;MMMMMMMMMMMMMMMMMMMMMMMM:
-       :MMMMMMMMMMMMMMMMMMMMMMMM:
-       .MMMMMMMMMMMMMMMMMMMMMMMMX.
-        kMMMMMMMMMMMMMMMMMMMMMMMMWd.
-        .XMMMMMMMMMMMMMMMMMMMMMMMMMMk
-         .XMMMMMMMMMMMMMMMMMMMMMMMMK.
-           kMMMMMMMMMMMMMMMMMMMMMMd
-            ;KMMMMMMMWXXWMMMMMMMk.
-              .cooc,.    .,coo:.
-              ]]
+    --                        'c.
+    --                     ,xNMM.
+    --                   .OMMMMo
+    --                   OMMM0,
+    --         .;loddo:' loolloddol;.
+    --      cKMMMMMMMMMMNWMMMMMMMMMM0:
+    --     .KMMMMMMMMMMMMMMMMMMMMMMMWd.
+    --     XMMMMMMMMMMMMMMMMMMMMMMMX.
+    --    ;MMMMMMMMMMMMMMMMMMMMMMMM:
+    --    :MMMMMMMMMMMMMMMMMMMMMMMM:
+    --    .MMMMMMMMMMMMMMMMMMMMMMMMX.
+    --     kMMMMMMMMMMMMMMMMMMMMMMMMWd.
+    --     .XMMMMMMMMMMMMMMMMMMMMMMMMMMk
+    --      .XMMMMMMMMMMMMMMMMMMMMMMMMK.
+    --        kMMMMMMMMMMMMMMMMMMMMMMd
+    --         ;KMMMMMMMWXXWMMMMMMMk.
+    --           .cooc,.    .,coo:.
+    --           ]]
             -- local logo = table.concat({
             --   "            :h-                                  Nhy`               ",
             --   "           -mh.                           h.    `Ndho               ",

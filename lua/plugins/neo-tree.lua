@@ -4,23 +4,7 @@ return {
         "nvim-neo-tree/neo-tree.nvim",
         dependencies = { "MunifTanjim/nui.nvim", lazy = true }, --依赖窗口插件
         cmd = "Neotree",
-        keys = {
-            {
-                "<leader>E",
-                function()
-                    require("neo-tree.command").execute({ toggle = true, dir = require("util").get_root() })
-                end,
-                desc = "Explorer NeoTree (root dir)",
-            },
-            {
-                "<leader>e",
-                function()
-                    require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-                end,
-                desc = "Explorer NeoTree (cwd)",
-            },
 
-        },
         deactivate = function()
             vim.cmd([[Neotree close]])
         end,

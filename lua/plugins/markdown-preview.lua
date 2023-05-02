@@ -7,9 +7,6 @@ return {
         -- 需要调整nodejs版本
         build = "source /usr/share/nvm/init-nvm.sh; nvm use v18; cd app && npm install",
         ft = { "markdown" },
-        keys = {
-            { "<leader>md", "<cmd>MarkdownPreviewToggle<cr>", desc = "MarkdownPreviewToggle" },
-        },
         config = function()
             -- vim.cmd([[let g:mkdp_auto_start = 1]]) --这是格式
             vim.g.mkdp_theme='light'
@@ -21,7 +18,11 @@ return {
     },
     {
         "ekickx/clipboard-image.nvim", --markdown插入图片
-        lazy = true,
+        -- lazy = true,
+        -- keys = {
+        --     { "<leader>mi", "<cmd>PasteImg<cr>", desc = "PasteImg" },
+
+        -- },
         config = function()
             require 'clipboard-image'.setup {
                 -- Default configuration for all filetype
@@ -43,9 +44,5 @@ return {
                 }
             }
         end,
-        keys = {
-            { "<leader>mi", "<cmd>PasteImg<cr>", desc = "PasteImg" },
-
-        },
     }
 }

@@ -3,7 +3,6 @@ return {
     {
         "williamboman/mason.nvim",
         cmd = "Mason",
-        keys = { { "<leader>Lm", "<cmd>Mason<cr>", desc = "Mason" } },
         opts = {
             ensure_installed = {
                 "stylua",  --lua
