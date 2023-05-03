@@ -150,7 +150,6 @@ if Util.has("trouble.nvim") then
     map("n", "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", { desc = "Workspace Diagnostics (Trouble)" })
     map("n", "<leader>xL", "<cmd>TroubleToggle loclist<cr>", { desc = "Location List (Trouble)" })
     map("n", "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", { desc = "Quickfix List (Trouble)" })
-    --FIX:
     map("n",
         "[q",
         function()
@@ -291,15 +290,18 @@ end
 --mini-surround
 --lsp/keymaps
 --telescope-nvim
---一键运行c/cpp
+
+--一键编译c/cpp
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "c",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
         vim.api.nvim_buf_set_keymap(0, "n", "<A-S-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=gcc17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
+            "<ESC>:w<CR>:split<CR>:te gcc -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
             { silent = true, noremap = true })
     end,
+})
+vim.api.nvim_create_autocmd("FileType", {
     pattern = "cpp",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
@@ -309,15 +311,18 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 }) --./src/*.cpp
 
+--一键运行代码文件
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "c",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
         vim.api.nvim_buf_set_keymap(0, "n", "<A-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=gcc17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/   -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files//a.out<CR>i", --%:t:r
+            "<ESC>:w<CR>:split<CR>:te gcc  -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/   -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files//a.out<CR>i", --%:t:r
             { silent = true, noremap = true }
         )
     end,
+})
+vim.api.nvim_create_autocmd("FileType", {
     pattern = "cpp",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
@@ -329,4 +334,15 @@ vim.api.nvim_create_autocmd("FileType", {
             { silent = true, noremap = true }
         )
     end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function()
+        vim.api.nvim_buf_set_keymap(0, "n", "<A-r>",
+
+            ":w<CR>:split<CR>:te  time python3 % <CR>i",
+            { silent = true, noremap = true }
+        )
+    end,
+
 })

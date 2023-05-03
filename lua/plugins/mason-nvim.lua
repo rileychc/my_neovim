@@ -8,6 +8,7 @@ return {
                 "stylua",  --lua
                 "lua-language-server",
                 "pyright", --python
+                "python-lsp-server",
                 "clangd",
                 "codelldb",
                 "cmake-language-server",

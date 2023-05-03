@@ -1,7 +1,7 @@
 local dap_ft = "python,c,cpp"
 
 return {
-    {"mfussenegger/nvim-dap-python",},
+    -- {"mfussenegger/nvim-dap-python",},
     {
         "jayp0521/mason-nvim-dap.nvim", --依赖插件
         opts = { automatic_setup = true },
