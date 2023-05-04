@@ -19,6 +19,7 @@ local function set_sidebar_icons()
     end
 end
 return {
+    {"mfussenegger/nvim-jdtls"},--java
     { "nvim-tree/nvim-web-devicons", lazy = true }, --lspsaga 依赖
     {
         "neovim/nvim-lspconfig",

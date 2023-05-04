@@ -312,6 +312,7 @@ vim.api.nvim_create_autocmd("FileType", {
 }) --./src/*.cpp
 
 --一键运行代码文件
+--C
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "c",
     callback = function()
@@ -322,6 +323,7 @@ vim.api.nvim_create_autocmd("FileType", {
         )
     end,
 })
+--C++
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "cpp",
     callback = function()
@@ -335,12 +337,25 @@ vim.api.nvim_create_autocmd("FileType", {
         )
     end,
 })
+--Python
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "python",
     callback = function()
         vim.api.nvim_buf_set_keymap(0, "n", "<A-r>",
 
             ":w<CR>:split<CR>:te  time python3 % <CR>i",
+            { silent = true, noremap = true }
+        )
+    end,
+
+})
+--Java
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "java",
+    callback = function()
+        vim.api.nvim_buf_set_keymap(0, "n", "<A-r>",
+
+            ":w<CR>:split<CR>:te  time java % <CR>i",
             { silent = true, noremap = true }
         )
     end,

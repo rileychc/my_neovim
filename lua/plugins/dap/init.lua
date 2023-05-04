@@ -7,7 +7,7 @@ return {
         opts = { automatic_setup = true },
     },
     {
-        "Weissle/persistent-breakpoints.nvim",--断点插件
+        "Weissle/persistent-breakpoints.nvim", --断点插件
         event = { "BufReadPost" },
         opts = { load_breakpoints_event = { "BufReadPost" } },
     },
