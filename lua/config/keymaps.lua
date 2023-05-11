@@ -64,7 +64,6 @@ map({ "i", "v", "n", "s" }, "<A-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 -- new file
-map("n", "<A-n>", "<cmd>enew<cr>", { desc = "New File" })
 map("n", "<leader>xl", "<cmd>TodoLocList<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>TodoQuickFix<cr>", { desc = "Quickfix List" })
 -- stylua: ignore start
@@ -103,11 +102,9 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
-if Util.has("mini.bufremove") then
-    map("n", "<leader>bd", function() require("mini.bufremove").delete(0, false) end, { desc = "Delete Buffer" })
-    map("n", "<leader>bD", function() require("mini.bufremove").delete(0, true) end, { desc = "Delete Buffer(Force)" })
-end
+
 -- -- buffers
+map("n", "<A-t>", "<cmd>enew<cr>", { desc = "New File" })
 if Util.has("bufferline.nvim") then
     map("n", "<A-{>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
     map("n", "<A-}>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" }) --<A-{>
@@ -121,12 +118,17 @@ if Util.has("bufferline.nvim") then
     map("n", "<A-8>", "<cmd>BufferLineGoToBuffer 8<CR>")
     map("n", "<A-9>", "<cmd>BufferLineGoToBuffer 9<CR>")
 end
+if Util.has("mini.bufremove") then
+    map("n", "<leader>bd", function() require("mini.bufremove").delete(0, false) end, { desc = "Delete Buffer" })
+    map("n", "<leader>bD", function() require("mini.bufremove").delete(0, true) end, { desc = "Delete Buffer(Force)" })
+end
 
 if Util.has("noice.nvim") then
     map("c", "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, { desc = "Redirect Cmdline" })
     map("n", "<leader>nl", function() require("noice").cmd("last") end, { desc = "Noice Last Message" })
     map("n", "<leader>nh", function() require("noice").cmd("history") end, { desc = "Noice History" })
-    map("n", "<leader>na", function() require("noice").cmd("all") end, { desc = "Noice All" })
+    -- map("n", "<leader>na", function() require("noice").cmd("all") end, { desc = "Noice All" })
+    map("n", "<leader>na", "<cmd>Telescope notify<CR>", { desc = "Search All Notify" })
     map({ "n", "i", "s" }, "<A-f>", function() if not require("noice.lsp").scroll(4) then return "<C-f>" end end,
         { silent = true, desc = "Scroll forward" })
     map({ "n", "i", "s" }, "<A-b>", function() if not require("noice.lsp").scroll(-4) then return "<C-b>" end end,
@@ -175,10 +177,6 @@ end
 if Util.has("markdown-preview.nvim") then
     map("n", "<leader>md", "<cmd>MarkdownPreviewToggle<CR>", { desc = "MarkdownPreviewToggle" })
 end
---FIX:
--- if Util.has("clipboard-image.nvim") then
---     map("n", "<leader>mi", "<cmd>PasteImg<CR>", { desc = "PasteImg" })
--- end
 
 if Util.has("vim-translator") then
     map({ "n", "v" }, "<leader>tt", "<cmd>Translate<cr>", { desc = "Translate" })
@@ -229,10 +227,10 @@ if Util.has("nvim-notify") then
 end
 --
 if Util.has("telescope.nvim") then
-    --   map( "n", --在插件中查找
-    --     "<leader>fp",
-    --     function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
-    --     {desc = "Find Plugin File"})
+    map("n", --在插件中查找
+        "<leader>sp",
+        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
+        { desc = "Find Plugin File" })
     -- --加上
     map("n", "<leader><", "<cmd>Telescope buffers show_all_buffers=true<cr>", { desc = "All Buffer" }) --显示所有缓冲区
     map("n", "<leader>?", Util.telescope("live_grep"), { desc = "Find in Files (root dir)" })

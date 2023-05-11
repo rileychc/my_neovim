@@ -53,11 +53,13 @@ local opts = {
 
 return {
     "rcarriga/nvim-dap-ui",
+    lazy = true,
+    event = "VeryLazy",
     config = function()
         local dap, dapui = require("dap"), require("dapui")
         require("neodev").setup({
             library = { plugins = { "nvim-dap-ui" }, types = true },
-          })
+        })
         dapui.setup(opts)
 
         local debug_open = function()

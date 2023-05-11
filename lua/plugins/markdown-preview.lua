@@ -19,12 +19,11 @@ return {
     {
         "ekickx/clipboard-image.nvim", --markdown插入图片
         -- lazy = true,
-        -- keys = {
-        --     { "<leader>mi", "<cmd>PasteImg<cr>", desc = "PasteImg" },
-
-        -- },
+        keys = {
+            { "<leader>mi", "<cmd>PasteImg<cr>", desc = "PasteImg" },
+        },
         config = function()
-            require 'clipboard-image'.setup {
+            require("clipboard-image").setup ({
                 -- Default configuration for all filetype
                 default = {
                     img_dir = "./img",
@@ -35,14 +34,14 @@ return {
                 -- If you're uncertain what to name your field to, you can run `lua print(vim.bo.filetype)`
                 -- Missing options from `markdown` field will be replaced by options from `default` field
                 markdown = {
-                    img_dir = { "./img", "src", "assets", "img" }, -- Use table for nested dir (New feature form PR #20)
-                    img_dir_txt = "./img/src/assets/img",
+                    img_dir = { "./img", "assets", "img" }, -- Use table for nested dir (New feature form PR #20)
+                    img_dir_txt = "./img/assets/img",
                     img_handler = function(img)                    -- New feature from PR #22
                         local script = string.format('./image_compressor.sh "%s"', img.path)
                         os.execute(script)
                     end,
                 }
-            }
+            })
         end,
     }
 }

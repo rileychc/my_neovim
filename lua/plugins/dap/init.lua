@@ -4,15 +4,22 @@ return {
     -- {"mfussenegger/nvim-dap-python",},
     {
         "jayp0521/mason-nvim-dap.nvim", --依赖插件
+
+        lazy = true,
+        event = "VeryLazy",
         opts = { automatic_setup = true },
     },
     {
         "Weissle/persistent-breakpoints.nvim", --断点插件
+
+        lazy = true,
         event = { "BufReadPost" },
         opts = { load_breakpoints_event = { "BufReadPost" } },
     },
     {
         "mfussenegger/nvim-dap",
+        lazy = true,
+        event = "VeryLazy",
         dependencies = {
             {
                 "theHamsta/nvim-dap-virtual-text",
