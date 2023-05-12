@@ -18,10 +18,28 @@ return {
                 return col ~= 0 and
                     vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
             end
-
             local luasnip = require("luasnip")
             local cmp = require("cmp")
             cmp.setup({
+                enabled = function()
+                    -- disable completion in comments
+                    local context = require 'cmp.config.context'
+                    -- keep command mode completion enabled when cursor is in a comment
+                    if vim.api.nvim_get_mode().mode == 'c' then
+                        return true
+                    else
+                        return not context.in_treesitter_capture("comment")
+                            and not context.in_syntax_group("Comment")
+                    end
+                end,
+                view = {
+                    entries = { name = 'custom', selection_order = 'near_cursor' }
+                },
+
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
                 mapping = {
                     ["<A-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
                     ["<A-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -35,7 +53,6 @@ return {
                         select = true,
                     }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                     -- ... Your other mappings ...
-
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
