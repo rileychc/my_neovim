@@ -14,7 +14,8 @@ end
 --我添加
 map("n", "<leader>Lz", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>Lm", "<cmd>Mason<cr>", { desc = "Mason" })
-map("i", "jk", "<Esc>")
+-- map("i", "jk", "<Esc>")
+map("n", "<S-Tab>", "<cmd>normal za<CR>", { desc = "Toggle code fold" })
 map({ "n", "v", "o" }, "<S-j>", "5j")
 map({ "n", "v", "o" }, "<S-k>", "5k")
 map({ "n", "v", "o" }, "<S-h>", "5h")

@@ -37,4 +37,15 @@ return {
             end
         end,
     },
+    {--是mason-null更好工作，可有可无
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+          "williamboman/mason.nvim",
+          "jose-elias-alvarez/null-ls.nvim",
+        },
+        config = function()
+          require("plugins.null-ls-nvim") -- require your null-ls config here (example below)
+        end,
+    }
 }
