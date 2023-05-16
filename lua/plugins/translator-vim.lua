@@ -2,6 +2,7 @@ return
 {
     {
         "voldikss/vim-translator",
+        event="VeryLazy",
         -- cmd = "",
         config = function()
             vim.cmd [[

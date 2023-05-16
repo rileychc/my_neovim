@@ -2,6 +2,7 @@ return {
     -- 这个插件可以让你更方便地在 NeoVim 中修改文本周围的符号。它可以帮助你快速在文本周围添加、删除或修改符号。
     {
         "echasnovski/mini.surround",
+        event = "VeryLazy",
         keys = function(_, keys)
             -- Populate the keys based on the user's options
             local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
@@ -22,13 +23,13 @@ return {
         end,
         opts = {
             mappings = {
-                add = "gza",            -- Add surrounding in Normal and Visual modes
-                delete = "gzd",         -- Delete surrounding
-                find = "gzf",           -- Find surrounding (to the right)
-                find_left = "gzF",      -- Find surrounding (to the left)
-                highlight = "gzh",      -- Highlight surrounding
-                replace = "gzr",        -- Replace surrounding
-                update_n_lines = "gzn", -- Update `n_lines`
+                add = "<leader>sa",            -- Add surrounding in Normal and Visual modes
+                delete = "<leader>sd",         -- Delete surrounding
+                find = "<leader>sf",           -- Find surrounding (to the right)
+                find_left = "<leader>sF",      -- Find surrounding (to the left)
+                highlight = "<leader>sh",      -- Highlight surrounding
+                replace = "<leader>sr",        -- Replace surrounding
+                update_n_lines = "<leader>sn", -- Update `n_lines`
             },
         },
         config = function(_, opts)

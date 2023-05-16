@@ -54,14 +54,12 @@ local opts = {
 return {
     "rcarriga/nvim-dap-ui",
     lazy = true,
-    event = "VeryLazy",
     config = function()
         local dap, dapui = require("dap"), require("dapui")
-        require("neodev").setup({
-            library = { plugins = { "nvim-dap-ui" }, types = true },
-        })
+        -- require("neodev").setup({
+        --     library = { plugins = { "nvim-dap-ui" }, types = true },
+        -- })
         dapui.setup(opts)
-
         local debug_open = function()
             dapui.open({})
         end
@@ -69,7 +67,6 @@ return {
             dap.repl.close()
             dapui.close({})
         end
-
         dap.listeners.after.event_initialized["dapui_config"] = debug_open
         dap.listeners.before.event_terminated["dapui_config"] = debug_close
         dap.listeners.before.event_exited["dapui_config"] = debug_close

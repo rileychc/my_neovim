@@ -3,9 +3,8 @@ return
     {
         "madskjeldgaard/cppman.nvim",
         event = "VeryLazy",
-        lazy = true,
         dependencies = {
-            { 'MunifTanjim/nui.nvim' },
+            { 'MunifTanjim/nui.nvim' ,event = "VeryLazy",},
         },
         config = function()
             require("cppman").setup()

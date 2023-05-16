@@ -19,20 +19,23 @@ local function set_sidebar_icons()
     end
 end
 return {
-    {"mfussenegger/nvim-jdtls"},--java
-    { "nvim-tree/nvim-web-devicons", lazy = true }, --lspsaga 依赖
+    {"mfussenegger/nvim-jdtls",lazy=true,},--java
+    { "nvim-tree/nvim-web-devicons", lazy = true, }, --lspsaga 依赖
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            { "folke/neoconf.nvim",   cmd = "Neoconf", config = true },
-            {
-                "folke/neodev.nvim",
-                opts = {
-                    experimental = { pathStrict = true },
-                    library = { plugins = { "nvim-dap-ui" }, types = true }
-                }
-            }, --library  我加上
+        --     { "folke/neoconf.nvim", event="VeryLazy",--管理全局和项目本地设置的插件。
+        --     cmd = "Neoconf", config = true 
+        -- },
+        --     {--自动配置lua语言服务器
+        --         "folke/neodev.nvim",
+        --         event="VeryLazy",
+        --         opts = {
+        --             experimental = { pathStrict = true },
+        --             library = { plugins = { "nvim-dap-ui" }, types = true }
+        --         }
+        --     }, --library  我加上
             "williamboman/mason-lspconfig.nvim",
             {
                 "hrsh7th/cmp-nvim-lsp",
@@ -109,6 +112,8 @@ return {
         },
         ---@param opts PluginLspOpts
         config = function(_, opts)
+
+            
             -- setup autoformat
             require("plugins.lsp.format").autoformat = opts.autoformat
             -- setup formatting and keymaps
@@ -125,7 +130,8 @@ return {
                 vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
             end
             vim.diagnostic.config(opts.diagnostics)
-
+            
+             
             local servers = opts.servers
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -166,13 +172,11 @@ return {
                 end
             end
 
-
-
-
             if have_mason then
                 mlsp.setup({ ensure_installed = ensure_installed })
                 mlsp.setup_handlers({ setup })
             end
+        
         end,
     },
     {

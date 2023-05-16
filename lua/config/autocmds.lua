@@ -4,13 +4,13 @@ local function augroup(name)
     return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
--- Check if we need to reload the file when it changed
+-- 检查当文件更改时，我们是否需要重新加载
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     group = augroup("checktime"),
     command = "checktime",
 })
 
--- Highlight on yank
+--复制的时候高亮显示 
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup("highlight_yank"),
     callback = function()
@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
--- resize splits if window got resized
+-- 如果窗口调整了大小，则调整拆分大小
 vim.api.nvim_create_autocmd({ "VimResized" }, {
     group = augroup("resize_splits"),
     callback = function()
@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
     end,
 })
 
--- go to last loc when opening a buffer
+-- 打开缓冲区时转到last loc
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = augroup("last_loc"),
     callback = function()
@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
--- close some filetypes with <q>
+-- close some filetypes with <q>(需要找到需要什么参数)
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("close_with_q"),
     pattern = {
@@ -58,15 +58,15 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- wrap and check for spell in text filetypes
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup("wrap_spell"),
-    pattern = { "gitcommit" },
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.spell = true
-    end,
-})
+-- wrap and check for spell in text filetypes(作用不大)
+-- vim.api.nvim_create_autocmd("FileType", {
+--     group = augroup("wrap_spell"),
+--     pattern = { "gitcommit" },
+--     callback = function()
+--         vim.opt_local.wrap = true
+--         -- vim.opt_local.spell = true
+--     end,
+-- })
 
---Don't auto commenting new lines
-vim.api.nvim_create_autocmd("BufEnter", { pattern = "", command = "set fo-=c fo-=r fo-=o", })
+--不要自动评论新行(没起作用)
+-- vim.api.nvim_create_autocmd("BufEnter", { pattern = "", command = "set fo-=c fo-=r fo-=o", })

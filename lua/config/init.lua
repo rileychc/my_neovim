@@ -5,17 +5,10 @@ local M = {}
 M.lazy_version = ">=9.1.0"
 local defaults = {
     colorscheme = function()
-        -- require("gruvbox").load()
         require("tokyonight").load()
-        -- require("catppuccin").load()
+        -- require("defaults").load()
         -- require("onedarkpro").load()
     end,
-    -- load the default settings
-    defaults = {
-        autocmds = true, -- autocmds
-        keymaps = true,  -- keymaps
-        options = true,  -- options
-    },
     -- icons used by other plugins
     icons = {
         diagnostics = {
@@ -68,31 +61,16 @@ local defaults = {
         },
     },
 }
-
 ---@type Config
 local options
 
 ---@param opts? Config
 function M.setup(opts)
     options = vim.tbl_deep_extend("force", defaults, opts or {})
-
-
-    if vim.fn.argc(-1) == 0 then
-        -- autocmds and keymaps can wait to load
-        -- vim.api.nvim_create_autocmd("User", {
-        --   group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
-        --   pattern = "VeryLazy",
-        --   callback = function()
-        --     M.load("autocmds")
-        --     M.load("keymaps")
-        --   end,
-        -- })
-    else
-        -- load them now so they affect the opened buffers
+            --加载我的配置 
         M.load("autocmds")
         M.load("keymaps")
-    end
-
+--尝试加载我的主题
     require("lazy.core.util").try(function()
         if type(M.colorscheme) == "function" then
             M.colorscheme()
@@ -108,13 +86,8 @@ function M.setup(opts)
     })
 end
 
----@param range? string
-function M.has(range)
-    local Semver = require("lazy.manage.semver")
-    return Semver.range(range or M.lazy_version):matches(require("lazy.core.config").version or "0.0.0")
-end
 
----@param name "autocmds" | "options" | "keymaps"
+---@param 加载配置 "autocmds" | "options" | "keymaps"
 function M.load(name)
     local Util = require("lazy.core.util")
     local function _load(mod)
@@ -131,31 +104,25 @@ function M.load(name)
             end,
         })
     end
-    -- always load lazyvim, then user file
-    -- if M.defaults[name] then
-    --   _load("config." .. name)
-    -- end
     _load("config." .. name)
-    -- if vim.bo.filetype == "lazy" then
-    --   -- HACK: LazyVim may have overwritten options of the Lazy ui, so reset this here
-    --   vim.cmd([[do VimResized]])
-    -- end
 end
 
-M.did_init = false
+M.did_init = false  --保证加载一次
 function M.init()
     if not M.did_init then
         M.did_init = true
-        -- delay notifications till vim.notify was replaced or after 500ms
+        --  展示通知
         require("util").lazy_notify()
-
-        -- load options here, before lazy init while sourcing plugin modules
-        -- this is needed to make sure options will be correctly applied
-        -- after installing missing plugins
+        --保证options先被加载
         require("config").load("options")
     end
 end
-
+--检查版本号
+function M.has(range)
+    local Semver = require("lazy.manage.semver")
+    return Semver.range(range or M.lazy_version):matches(require("lazy.core.config").version or "0.0.0")
+end
+--访问M表中不存在的键时，能够从默认值或者特定的options表中获取对应的值。这种技巧在Lua中经常被用于实现默认参数或者选项
 setmetatable(M, {
     __index = function(_, key)
         if options == nil then
@@ -165,5 +132,4 @@ setmetatable(M, {
         return options[key]
     end,
 })
-
 return M

@@ -1,28 +1,21 @@
 local dap_ft = "python,c,cpp"
 
 return {
-    -- {"mfussenegger/nvim-dap-python",},
-    {
-        "jayp0521/mason-nvim-dap.nvim", --依赖插件
+    {"mfussenegger/nvim-dap-python",lazy=true,},
 
-        lazy = true,
-        event = "VeryLazy",
-        opts = { automatic_setup = true },
-    },
     {
         "Weissle/persistent-breakpoints.nvim", --断点插件
-
-        lazy = true,
+        event="VeryLazy",
         event = { "BufReadPost" },
         opts = { load_breakpoints_event = { "BufReadPost" } },
     },
     {
         "mfussenegger/nvim-dap",
         lazy = true,
-        event = "VeryLazy",
         dependencies = {
             {
                 "theHamsta/nvim-dap-virtual-text",
+                lazy=true,
                 opts = {
                     enabled = true,
                     enable_commands = true,             --创建命令DapVirtualTextEnable，DapVirtualTextDisable，DapVirtualTextToggle，（当调试适配器没有通知其终止时，DapVirtualTextForceRefresh用于刷新）

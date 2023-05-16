@@ -3,7 +3,7 @@ local Docs = require("lazy.docs")
 local Util = require("lazy.util")
 
 local M = {}
-local root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h:h:h")
+local root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h:h:h")--获取当前脚本文件的上上上上级目录的绝对路径
 
 ---@return ReadmeBlock
 function M.keymaps()
@@ -129,106 +129,106 @@ import TabItem from '@theme/TabItem';
     return { content = table.concat(lines, "\n") }
 end
 
-function M.recipes()
-    local src = Util.read_file(vim.fs.normalize("~/projects/lazyvim.github.io/lua/recipes.lua"))
-    local lines = vim.split(src, "\n")
-    local ret = {}
-    local header = {} ---@type string[]
-    local block = {} ---@type string[]
-    for _, line in ipairs(lines) do
-        local comment = line:match("^  %-%- ?(.*)")
-        if comment then
-            header[#header + 1] = comment
-        elseif line:find("^  {") then
-            block = { "{" }
-        elseif line:find("^  }") then
-            block[#block + 1] = "  }"
-            vim.list_extend(ret, header)
-            ret[#ret + 1] = "\n```lua"
-            local code = Docs.fix_indent(table.concat(block, "\n"))
-            ret[#ret + 1] = code
-            ret[#ret + 1] = "```\n"
-            header = {}
-            block = {}
-        else
-            block[#block + 1] = line
-        end
-    end
-    return { content = table.concat(ret, "\n") }
-end
+-- function M.recipes()
+--     local src = Util.read_file(vim.fs.normalize("~/projects/lazyvim.github.io/lua/recipes.lua"))
+--     local lines = vim.split(src, "\n")
+--     local ret = {}
+--     local header = {} ---@type string[]
+--     local block = {} ---@type string[]
+--     for _, line in ipairs(lines) do
+--         local comment = line:match("^  %-%- ?(.*)")
+--         if comment then
+--             header[#header + 1] = comment
+--         elseif line:find("^  {") then
+--             block = { "{" }
+--         elseif line:find("^  }") then
+--             block[#block + 1] = "  }"
+--             vim.list_extend(ret, header)
+--             ret[#ret + 1] = "\n```lua"
+--             local code = Docs.fix_indent(table.concat(block, "\n"))
+--             ret[#ret + 1] = code
+--             ret[#ret + 1] = "```\n"
+--             header = {}
+--             block = {}
+--         else
+--             block[#block + 1] = line
+--         end
+--     end
+--     return { content = table.concat(ret, "\n") }
+-- end
 
-function M.update2()
-    local docs = vim.fs.normalize("~/projects/lazyvim.github.io/docs")
+-- function M.update2()
+--     local docs = vim.fs.normalize("~/projects/lazyvim.github.io/docs")
 
-    local config = Docs.extract("lua/config/init.lua", "\nlocal defaults = ({.-\n})")
+--     local config = Docs.extract("lua/config/init.lua", "\nlocal defaults = ({.-\n})")
 
-    Docs.save({
-        config = config,
-    }, docs .. "/configuration/index.md")
+--     Docs.save({
+--         config = config,
+--     }, docs .. "/configuration/index.md")
 
-    Docs.save({
-        general = M.general(),
-    }, docs .. "/configuration/general.md")
+--     Docs.save({
+--         general = M.general(),
+--     }, docs .. "/configuration/general.md")
 
-    Docs.save({
-        recipes = M.recipes(),
-    }, docs .. "/configuration/recipes.md")
+--     Docs.save({
+--         recipes = M.recipes(),
+--     }, docs .. "/configuration/recipes.md")
 
-    Docs.save({
-        lazy = {
-            content = [[```lua title="lua/lazy.lua"]] .. "\n" .. Util.read_file(
-                    vim.fn.fnamemodify(root .. "/../LazyVim-starter/lua/config/lazy.lua", ":p")
-                ) .. "\n```",
-        },
-    }, docs .. "/configuration/lazy.nvim.md")
+--     Docs.save({
+--         lazy = {
+--             content = [[```lua title="lua/lazy.lua"]] .. "\n" .. Util.read_file(
+--                     vim.fn.fnamemodify(root .. "/../LazyVim-starter/lua/config/lazy.lua", ":p")
+--                 ) .. "\n```",
+--         },
+--     }, docs .. "/configuration/lazy.nvim.md")
 
-    Docs.save({
-        keymaps = M.keymaps(),
-    }, docs .. "/keymaps.md")
+--     Docs.save({
+--         keymaps = M.keymaps(),
+--     }, docs .. "/keymaps.md")
 
-    Util.walk(root .. "/lua/lazyvim/plugins/extras", function(path, name, type)
-        if type == "file" and name:find("%.lua$") then
-            local modname = path:gsub(".*/lua/", ""):gsub("/", "."):gsub("%.lua$", "")
-            local lines = {} ---@type string[]
-            vim.list_extend(lines, {
-                "",
-                ([[
-To use this, add it to your **lazy.nvim** imports:
+--     Util.walk(root .. "/lua/lazyvim/plugins/extras", function(path, name, type)
+--         if type == "file" and name:find("%.lua$") then
+--             local modname = path:gsub(".*/lua/", ""):gsub("/", "."):gsub("%.lua$", "")
+--             local lines = {} ---@type string[]
+--             vim.list_extend(lines, {
+--                 "",
+--                 ([[
+-- To use this, add it to your **lazy.nvim** imports:
 
-```lua title="lua/config/lazy.lua" {4}
-require("lazy").setup({
-  spec = {
-    { "folke/LazyVim", import = "plugins" },
-    { import = "%s" },
-    { import = "plugins" },
-  },
-})
-```
-]]):format(modname),
-                M.plugins("extras/" .. path:gsub(".*/extras/", "")).content,
-                "",
-            })
-            Docs.save({
-                plugins = { content = table.concat(lines, "\n") },
-            }, docs .. "/plugins/extras/" .. modname:gsub(".*extras%.", "") .. ".md")
-        end
-    end)
+-- ```lua title="lua/config/lazy.lua" {4}
+-- require("lazy").setup({
+--   spec = {
+--     { "folke/LazyVim", import = "plugins" },
+--     { import = "%s" },
+--     { import = "plugins" },
+--   },
+-- })
+-- ```
+-- ]]):format(modname),
+--                 M.plugins("extras/" .. path:gsub(".*/extras/", "")).content,
+--                 "",
+--             })
+--             Docs.save({
+--                 plugins = { content = table.concat(lines, "\n") },
+--             }, docs .. "/plugins/extras/" .. modname:gsub(".*extras%.", "") .. ".md")
+--         end
+--     end)
 
-    local examples = vim.fn.fnamemodify(root .. "/../LazyVim-starter/lua/plugins/example.lua", ":p")
-    Docs.save({
-        examples = Util.read_file(examples):gsub("^[^\n]+\n[^\n]+\n[^\n]+\n", ""),
-    }, docs .. "/configuration/examples.md")
+--     local examples = vim.fn.fnamemodify(root .. "/../LazyVim-starter/lua/plugins/example.lua", ":p")
+--     Docs.save({
+--         examples = Util.read_file(examples):gsub("^[^\n]+\n[^\n]+\n[^\n]+\n", ""),
+--     }, docs .. "/configuration/examples.md")
 
-    Docs.save({
-        plugins = M.plugins("lsp/init.lua"),
-    }, docs .. "/plugins/lsp.md")
+--     Docs.save({
+--         plugins = M.plugins("lsp/init.lua"),
+--     }, docs .. "/plugins/lsp.md")
 
-    for _, p in ipairs({ "coding", "colorscheme", "editor", "treesitter", "ui", "util" }) do
-        Docs.save({
-            plugins = M.plugins(p .. ".lua"),
-        }, docs .. "/plugins/" .. p .. ".md")
-    end
-end
+--     for _, p in ipairs({ "coding", "colorscheme", "editor", "treesitter", "ui", "util" }) do
+--         Docs.save({
+--             plugins = M.plugins(p .. ".lua"),
+--         }, docs .. "/plugins/" .. p .. ".md")
+--     end
+-- end
 
 function M.plugins(path)
     local test = root .. "/lua/plugins/" .. path
@@ -352,6 +352,6 @@ end
 
 -- M.extract_opts("neovim/nvim-lspconfig")
 
-M.update2()
+-- M.update2()
 
 return M

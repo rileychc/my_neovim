@@ -47,5 +47,10 @@ return {
         config = function()
           require("plugins.null-ls-nvim") -- require your null-ls config here (example below)
         end,
-    }
+    },
+    {
+        "jayp0521/mason-nvim-dap.nvim", --依赖插件
+        lazy = true,
+        opts = { automatic_setup = true },
+    },
 }

@@ -2,7 +2,8 @@ return
 {
     {
         "jackMort/ChatGPT.nvim",
-        event = "VeryLazy",
+        lazy=true,
+        enabled=false,--暂时禁用
         dependencies = {
             "MunifTanjim/nui.nvim",
             "nvim-lua/plenary.nvim",

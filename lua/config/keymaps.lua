@@ -2,7 +2,6 @@ local Util = require("util")
 
 local function map(mode, lhs, rhs, opts)
     local keys = require("lazy.core.handler").handlers.keys
-    ---@cast keys LazyKeysHandler
     -- do not create the keymap if a lazy keys handler exists
     if not keys.active[keys.parse({ lhs, mode = mode }).id] then
         opts = opts or {}
@@ -10,19 +9,20 @@ local function map(mode, lhs, rhs, opts)
         vim.keymap.set(mode, lhs, rhs, opts)
     end
 end
-
+-- save file
+-- map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 --我添加
 map("n", "<leader>Lz", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>Lm", "<cmd>Mason<cr>", { desc = "Mason" })
--- map("i", "jk", "<Esc>")
 map("n", "<S-Tab>", "<cmd>normal za<CR>", { desc = "Toggle code fold" })
-map({ "n", "v", "o" }, "<S-j>", "5j")
-map({ "n", "v", "o" }, "<S-k>", "5k")
-map({ "n", "v", "o" }, "<S-h>", "5h")
-map({ "n", "v", "o" }, "<S-l>", "5l")
 map({ "n", "v", "o" }, "U", "<C-r>")
-map({ "n", "v", "o" }, "e", "$", { desc = "End of Line" })
-map({ "n", "v", "o" }, "E", "^", { desc = "Begin of Line" })
+-- map("i", "jk", "<Esc>")
+-- map({ "n", "v", "o" }, "<S-j>", "5j")
+-- map({ "n", "v", "o" }, "<S-k>", "5k")
+-- map({ "n", "v", "o" }, "<S-h>", "5h")
+-- map({ "n", "v", "o" }, "<S-l>", "5l")
+-- map({ "n", "v", "o" }, "e", "$", { desc = "End of Line" })
+-- map({ "n", "v", "o" }, "E", "^", { desc = "Begin of Line" })
 --结束
 --paste over  currently selected text without yanking it
 map("v", "p", '"_dP', { silent = true })
@@ -35,15 +35,15 @@ map("n", "<leader>j", "<C-w>j", { desc = "Go to lower window" })
 map("n", "<leader>k", "<C-w>k", { desc = "Go to upper window" })
 map("n", "<leader>l", "<C-w>l", { desc = "Go to right window" })
 -- 调整分屏窗口大小
-map("n", "<A-'>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<A-;>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<A-[>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<A-]>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<C-'>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-;>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-[>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-]>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 --移动行
-map("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-map("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-map("v", "<A-J>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<A-K>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map("n", "<C-J>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+map("n", "<C-K>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("v", "<C-J>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+map("v", "<C-K>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
@@ -59,8 +59,7 @@ map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result
 map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
--- save file
-map({ "i", "v", "n", "s" }, "<A-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+
 -- better indenting(缩进)     n模式下可使用>>锁进单行
 map("v", "<", "<gv")
 map("v", ">", ">gv")
@@ -87,8 +86,8 @@ map("n", "<leader>gG", function() Util.float_term({ "lazygit" }) end, { desc = "
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 -- floating terminal
-map("n", "<A-|>", function() Util.float_term(nil, { cwd = Util.get_root() }) end, { desc = "Terminal (root dir)" })
-map("n", "<A-\\>", function() Util.float_term() end, { desc = "Terminal (cwd)" })
+map("n", "<C-|>", function() Util.float_term(nil, { cwd = Util.get_root() }) end, { desc = "Terminal (root dir)" })
+map("n", "<C-\\>", function() Util.float_term() end, { desc = "Terminal (cwd)" })
 map("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Enter Normal Mode" })
 -- windows
 -- map("n", "<leader>ws", "<C-W>p", { desc = "Other window" })
@@ -105,19 +104,19 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 
 -- -- buffers
-map("n", "<A-t>", "<cmd>enew<cr>", { desc = "New File" })
+map("n", "<C-t>", "<cmd>enew<cr>", { desc = "New File" })
 if Util.has("bufferline.nvim") then
-    map("n", "<A-{>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-    map("n", "<A-}>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" }) --<A-{>
-    map("n", "<A-1>", "<cmd>BufferLineGoToBuffer 1<CR>")                        --切换文件
-    map("n", "<A-2>", "<cmd>BufferLineGoToBuffer 2<CR>")
-    map("n", "<A-3>", "<cmd>BufferLineGoToBuffer 3<CR>")
-    map("n", "<A-4>", "<cmd>BufferLineGoToBuffer 4<CR>")
-    map("n", "<A-5>", "<cmd>BufferLineGoToBuffer 5<CR>")
-    map("n", "<A-6>", "<cmd>BufferLineGoToBuffer 6<CR>")
-    map("n", "<A-7>", "<cmd>BufferLineGoToBuffer 7<CR>")
-    map("n", "<A-8>", "<cmd>BufferLineGoToBuffer 8<CR>")
-    map("n", "<A-9>", "<cmd>BufferLineGoToBuffer 9<CR>")
+    map("n", "<C-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+    map("n", "<C-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+    map("n", "<C-1>", "<cmd>BufferLineGoToBuffer 1<CR>")
+    map("n", "<C-2>", "<cmd>BufferLineGoToBuffer 2<CR>")
+    map("n", "<C-3>", "<cmd>BufferLineGoToBuffer 3<CR>")
+    map("n", "<C-4>", "<cmd>BufferLineGoToBuffer 4<CR>")
+    map("n", "<C-5>", "<cmd>BufferLineGoToBuffer 5<CR>")
+    map("n", "<C-6>", "<cmd>BufferLineGoToBuffer 6<CR>")
+    map("n", "<C-7>", "<cmd>BufferLineGoToBuffer 7<CR>")
+    map("n", "<C-8>", "<cmd>BufferLineGoToBuffer 8<CR>")
+    map("n", "<C-9>", "<cmd>BufferLineGoToBuffer 9<CR>")
 end
 if Util.has("mini.bufremove") then
     map("n", "<leader>bd", function() require("mini.bufremove").delete(0, false) end, { desc = "Delete Buffer" })
@@ -128,12 +127,11 @@ if Util.has("noice.nvim") then
     map("c", "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, { desc = "Redirect Cmdline" })
     map("n", "<leader>nl", function() require("noice").cmd("last") end, { desc = "Noice Last Message" })
     map("n", "<leader>nh", function() require("noice").cmd("history") end, { desc = "Noice History" })
-    -- map("n", "<leader>na", function() require("noice").cmd("all") end, { desc = "Noice All" })
     map("n", "<leader>na", "<cmd>Telescope notify<CR>", { desc = "Search All Notify" })
-    map({ "n", "i", "s" }, "<A-f>", function() if not require("noice.lsp").scroll(4) then return "<C-f>" end end,
-        { silent = true, desc = "Scroll forward" })
-    map({ "n", "i", "s" }, "<A-b>", function() if not require("noice.lsp").scroll(-4) then return "<C-b>" end end,
-        { silent = true, desc = "Scroll backward" })
+    -- map({ "n", "i", "s" }, "<C-f>", function() if not require("noice.lsp").scroll(4) then return "<C-f>" end end,
+    --     { silent = true, desc = "Scroll forward" })
+    -- map({ "n", "i", "s" }, "<C-b>", function() if not require("noice.lsp").scroll(-4) then return "<C-b>" end end,
+    --     { silent = true, desc = "Scroll backward" })
 end
 --chatgpt
 if Util.has("ChatGPT.nvim") then
@@ -143,9 +141,9 @@ if Util.has("ChatGPT.nvim") then
 end
 --cppman
 if Util.has("cppman.nvim") then
-    map("n", "<leader>cw", function() require("cppman").open_cppman_for(vim.fn.expand("<cword>")) end,
-        { desc = "CurWordHelp" })
-    map("n", "<leader>ch", "<cmd>CPPMan<CR>", { desc = "FindLibraryHelp" })
+    -- map("n", "<leader>fll", function() require("cppman").open_cppman_for(vim.fn.expand("<cword>")) end,
+    --     { desc = "Cur Word Help" })
+    map("n", "<leader>fl", "<cmd>CPPMan<CR>", { desc = "Find Lib Help" })
 end
 
 if Util.has("trouble.nvim") then
@@ -188,7 +186,7 @@ if Util.has("todo-comments.nvim") then
     map("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Previous todo comment" })
     map("n", "<leader>xt", "<cmd>TodoTrouble<cr>", { desc = "Todo (Trouble)" })
     map("n", "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", { desc = "Todo/Fix/Fixme (Trouble)" })
-    map("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Todo" })
+    map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Todo" })
 end
 
 
@@ -199,14 +197,7 @@ if Util.has("persistent-breakpoints.nvim") then
     map("n", "<leader>dB", "<cmd>PBSetConditionalBreakpoint<CR>", { desc = "Condition BreakPoint" })
 end
 
-if Util.has("nvim-dap") then
-    map("n", "<F17>", "<cmd>DapTerminate<CR>", { desc = "Quit Debug" })
-    map("n", "<F41>", "<cmd>DapRestartFrame<CR>", { desc = "Restart Debug" }) --重新开始
-    map("n", "<F5>", "<cmd>DapContinue<CR>", { desc = "Start Debug" })        --开始或继续
-    map("n", "<F23>", "<cmd>DapStepOut<CR>", { desc = "Step Out" })           --跳出
-    map("n", "<F10>", "<cmd>DapStepOver<CR>", { desc = "Step Over" })
-    map("n", "<F11>", "<cmd>DapStepInto<CR>", { desc = "Step Into" })
-end
+
 
 if Util.has("neo-tree.nvim") then
     map("n", "<leader>e", function()
@@ -228,49 +219,49 @@ if Util.has("nvim-notify") then
 end
 --
 if Util.has("telescope.nvim") then
+    map("n", "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }),
+        { desc = "Colorscheme with preview" })
     map("n", --在插件中查找
-        "<leader>sp",
+        "<leader>fp",
         function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
         { desc = "Find Plugin File" })
     -- --加上
-    map("n", "<leader><", "<cmd>Telescope buffers show_all_buffers=true<cr>", { desc = "All Buffer" }) --显示所有缓冲区
-    map("n", "<leader>?", Util.telescope("live_grep"), { desc = "Find in Files (root dir)" })
-    map("n", "<leader>/", Util.telescope("live_grep", { cwd = false }), { desc = "Find in Files (cwd)" })
-    map("n", "<leader>sW", Util.telescope("grep_string"), { desc = "Word (root dir)" })
-    map("n", "<leader>sw", Util.telescope("grep_string", { cwd = false }), { desc = "Word (cwd)" })
-    map("n", "<leader>;", "<cmd>Telescope command_history<cr>", { desc = "Command History" }) --查询历史命令
-    map("n", "<leader>:", "<cmd>Telescope commands<cr>", { desc = "Commands" })
-    -- find
-    map("n", "<leader>,", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })             --显示当前缓冲区
-    map("n", "<leader>>", Util.telescope("files"), { desc = "Find Files (root dir)" })    --全局查找
-    map("n", "<leader>.", Util.telescope("files", { cwd = false }), { desc = "Find Files (cwd)" })
-    map("n", "<leader><space>", "<cmd>Telescope oldfiles<cr>", { desc = "Recent files" }) --查找最近文件
+    map("n", "<leader>fB", "<cmd>Telescope buffers show_all_buffers=true<cr>", { desc = "All Buffer" }) --显示所有缓冲区
+    map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })                          --显示当前缓冲区
+    map("n", "<leader>fC", "<cmd>Telescope command_history<cr>", { desc = "Command History" })          --查询历史命令
+    map("n", "<leader>fc", "<cmd>Telescope commands<cr>", { desc = "Commands" })
+    map("n", "<leader>fa", "<cmd>Telescope autocommands<cr>", { desc = "Auto Commands" })
+    map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Cur Buffer Find" }) --在当前文件下查找
+    map("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics" })
+    map("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent files" })                     --查找最近文件
     -- -- git
     map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "commits" })
     map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "status" })
     -- search
-    map("n", "<leader>sa", "<cmd>Telescope autocommands<cr>", { desc = "Auto Commands" })
-    map("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Buffer" })
-    map("n", "<leader>sd", "<cmd>Telescope diagnostics<cr>", { desc = "Diagnostics" })
-    map("n", "<leader>sg", Util.telescope("live_grep"), { desc = "Grep (root dir)" })
-    map("n", "<leader>sG", Util.telescope("live_grep", { cwd = false }), { desc = "Grep (cwd)" })
-    map("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { desc = "Help Pages" })
-    map("n", "<leader>sH", "<cmd>Telescope highlights<cr>", { desc = "Search Highlight Groups" })
-    map("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Key Maps" })
-    map("n", "<leader>sM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" })
-    map("n", "<leader>sm", "<cmd>Telescope marks<cr>", { desc = "Jump to Mark" })
-    map("n", "<leader>so", "<cmd>Telescope vim_options<cr>", { desc = "Options" })
-    map("n", "<leader>sR", "<cmd>Telescope resume<cr>", { desc = "Resume" })
-    map("n", "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }),
-        { desc = "Colorscheme with preview" })
+    map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Pages" })               --查找帮助文档
+    map("n", "<leader>fH", "<cmd>Telescope highlights<cr>", { desc = "Search Highlight Groups" }) --查找高亮组
+    --目前用不上
+    map("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Key Maps" })                   --查找快捷键
+    -- map("n", "<leader>sW", Util.telescope("grep_string"), { desc = "Word (root dir)" })  --在根目录查找文件
+    -- map("n", "<leader>sw", Util.telescope("grep_string", { cwd = false }), { desc = "Word (cwd)" })--在当前目录查找文件
+    map("n", "<leader>fM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" }) --查找库函数帮助文档
+    map("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Jump to Mark" })  --查找标记处
+    map("n", "<leader>fo", "<cmd>Telescope vim_options<cr>", { desc = "Options" }) --查找options设置
+    map("n", "<leader>fR", "<cmd>Telescope resume<cr>", { desc = "Resume" })       --恢复上次查找的页面
+    --NOTE:
+    -- map("n", "<leader>fW", Util.telescope("live_grep"), { desc = "Find in Files (root dir)" })--在根目录查找字符串
+    map("n", "<leader>fW", "<cmd>Telescope live_grep<CR>", { desc = "Find in Files (root dir)" })          --在根目录查找字符串
+    map("n", "<leader>fw", Util.telescope("live_grep", { cwd = false }), { desc = "Find in Files (cwd)" }) --在当前目录查找字符串
+    map("n", "<leader>fF", Util.telescope("files"), { desc = "Find Files (root dir)" })                    --根目录查找文件
+    map("n", "<leader>ff", Util.telescope("files", { cwd = false }), { desc = "Find Files (cwd)" })        --当前目录查找文件
     map("n",
-        "<leader>ss",
+        "<leader>fs",
         Util.telescope("lsp_document_symbols",
             {
                 symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Struct", "Trait",
                     "Field", "Property", },
             }), { desc = "Goto Symbol" })
-    map("n", "<leader>sS",
+    map("n", "<leader>fS",
         Util.telescope("lsp_workspace_symbols", {
             symbols = { "Class", "Function", "Method", "Constructor", "Interface", "Module", "Struct", "Trait", "Field",
                 "Property", },
@@ -280,7 +271,14 @@ end
 if vim.fn.has("nvim-0.9.0") == 1 then
     map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 end
-
+if Util.has("nvim-dap") then
+    map("n", "<F17>", "<cmd>DapTerminate<CR>", { desc = "Quit Debug" })
+    map("n", "<F41>", "<cmd>DapRestartFrame<CR>", { desc = "Restart Debug" }) --重新开始
+    map("n", "<F5>", "<cmd>DapContinue<CR>", { desc = "Start Debug" })        --开始或继续
+    map("n", "<F23>", "<cmd>DapStepOut<CR>", { desc = "Step Out" })           --跳出
+    map("n", "<F10>", "<cmd>DapStepOver<CR>", { desc = "Step Over" })
+    map("n", "<F11>", "<cmd>DapStepInto<CR>", { desc = "Step Into" })
+end
 --cmp-nvim
 --treesitter.nvim
 --gitsigns-nvim
@@ -295,8 +293,8 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "c",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
-        vim.api.nvim_buf_set_keymap(0, "n", "<A-S-r>",
-            "<ESC>:w<CR>:split<CR>:te gcc -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
+        vim.api.nvim_buf_set_keymap(0, "n", "<C-S-r>",
+            "<ESC>:w<CR>:split<CR>:te gcc -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out % -g -I ./include/ -I .. -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
             { silent = true, noremap = true })
     end,
 })
@@ -304,8 +302,8 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "cpp",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
-        vim.api.nvim_buf_set_keymap(0, "n", "<A-S-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=c++20 -Wshadow -Wall -o ~/Public/Bin_Files/a.out  % -g -I ./include/ -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
+        vim.api.nvim_buf_set_keymap(0, "n", "<C-S-r>",
+            "<ESC>:w<CR>:split<CR>:te g++ -std=c++20 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out  % -g -I ./include/ -I .. -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
             { silent = true, noremap = true })
     end,
 }) --./src/*.cpp
@@ -316,8 +314,8 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "c",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
-        vim.api.nvim_buf_set_keymap(0, "n", "<A-r>",
-            "<ESC>:w<CR>:split<CR>:te gcc  -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/a.out % -g -I ./include/   -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files//a.out<CR>i", --%:t:r
+        vim.api.nvim_buf_set_keymap(0, "n", "<C-r>",
+            "<ESC>:w<CR>:split<CR>:te gcc  -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out % -g -I ./include/ -I ..  -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files//a.out<CR>i", --%:t:r
             { silent = true, noremap = true }
         )
     end,
@@ -330,8 +328,8 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.api.nvim_buf_set_keymap(
             0,
             "n",
-            "<A-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=c++20 -Wshadow -Wall -o ~/Public/Bin_Files/a.out %  -g -I ./include/   -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files/a.out<CR>i\n", --
+            "<C-r>",
+            "<ESC>:w<CR>:split<CR>:te g++ -std=c++20 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out %  -g -I ./include/ -I ..  -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files/a.out<CR>i\n", --
             { silent = true, noremap = true }
         )
     end,
@@ -340,7 +338,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "python",
     callback = function()
-        vim.api.nvim_buf_set_keymap(0, "n", "<A-r>",
+        vim.api.nvim_buf_set_keymap(0, "n", "<C-r>",
 
             ":w<CR>:split<CR>:te  time python3 % <CR>i",
             { silent = true, noremap = true }
@@ -352,7 +350,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "java",
     callback = function()
-        vim.api.nvim_buf_set_keymap(0, "n", "<A-r>",
+        vim.api.nvim_buf_set_keymap(0, "n", "<C-r>",
 
             ":w<CR>:split<CR>:te  time java % <CR>i",
             { silent = true, noremap = true }

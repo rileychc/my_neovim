@@ -1,15 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
--- vim.api.nvim_set_option_value("foldmethod", "expr", {})
--- vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
 local opt = vim.opt
--- opt.foldexpr=MyFoldLevel(v:lnum)
--- opt.viewoptions = "folds,cursor,curdir,slash,unix"
--- opt.foldmethod="manual"
--- opt.foldenable=false
--- opt.foldlevelstart = 99
-
-
 opt.swapfile = false
 opt.backup = false
 opt.autowrite = true           -- Enable auto write
@@ -26,12 +17,13 @@ opt.ignorecase = true      -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.laststatus = 0
 opt.list = true            -- Show some invisible characters (tabs...
-opt.mouse = "a"            -- Enable mouse mode
+-- opt.mouse = "a"            -- Enable mouse mode
 opt.number = true          -- Print line number
 opt.pumblend = 10          -- Popup blend
 opt.pumheight = 10         -- Maximum number of entries in a popup
 opt.relativenumber = true  -- Relative line numbers
-opt.scrolloff = 4          -- Lines of context
+-- opt.scrolloff = 4          -- Lines of context
+opt.scrolloff = 99          -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.shiftround = true      -- Round indent
 opt.shiftwidth = 4         -- Size of an indent

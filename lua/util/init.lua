@@ -1,6 +1,7 @@
 local Util = require("lazy.core.util")
 local M = {}
-local data = {
+ local icons = 
+{
     kind = {
         Class = "ﴯ",
         Color = "",
@@ -187,6 +188,7 @@ local data = {
         Stopped = "",
         Terminate = "ﱢ",
     },
+    
 }
 
 M.root_patterns = { ".git", "lua" }
@@ -198,11 +200,11 @@ function M.geticons(category, add_space)
     if add_space then
         return setmetatable({}, {
             __index = function(_, key)
-                return data[category][key] .. " "
+                return icons[category][key] .. " "
             end,
         })
     else
-        return data[category]
+        return icons[category]
     end
 end
 
@@ -311,7 +313,7 @@ end
 ---@param opts? LazyCmdOptions|{interactive?:boolean}
 function M.float_term(cmd, opts)
     opts = vim.tbl_deep_extend("force", {
-        size = { width = 0.9, height = 0.9 },
+        size = { width = 0.8, height = 0.8 },
     }, opts or {})
     require("lazy.util").float_term(cmd, opts)
 end

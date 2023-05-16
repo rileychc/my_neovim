@@ -31,5 +31,6 @@ return {
     -- 删除buffer缓存区
     {
         "echasnovski/mini.bufremove",
+        event = "VeryLazy",
     },
 }

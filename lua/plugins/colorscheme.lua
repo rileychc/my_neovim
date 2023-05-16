@@ -3,13 +3,12 @@ return {
     -- tokyonight
     {
         "folke/tokyonight.nvim",
-        lazy = true,
-        opts = { style = "moon" },
+        opts = { style = "night" },
         priority = 1000,
         config=function()
             require("tokyonight").setup(
                 {
-                    transparent=true,
+                    -- transparent=true,
                     -- styles={sidebars="normal",
                     -- floats="normal"},
                     -- on_colors = function(colors)
@@ -21,15 +20,5 @@ return {
             )
         end,
     },
-
-    -- -- catppuccin
-    -- {
-    --     "catppuccin/nvim",
-    --     name = "catppuccin",
-    -- },
-    -- { "ellisonleao/gruvbox.nvim" },
-    {
-        "olimorris/onedarkpro.nvim",
-      },
-
+    
 }

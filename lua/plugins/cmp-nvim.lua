@@ -10,6 +10,7 @@ return {
             "hrsh7th/cmp-path",         --提供了对文件路径进行补全的功能。
             "saadparwaiz1/cmp_luasnip", --支持 LuaSnip，一个基于 Lua 的代码片段工具，提供了对代码片段的补全功能。
             -- "hrsh7th/cmp-emoji", --提供了对表情符号进行补全的功能，用于更快捷地插入表情符号
+            "onsails/lspkind.nvim",     --补全时的符号显示
         },
         opts = function()
             local has_words_before = function()
@@ -21,17 +22,17 @@ return {
             local luasnip = require("luasnip")
             local cmp = require("cmp")
             cmp.setup({
-                enabled = function()
-                    -- disable completion in comments
-                    local context = require 'cmp.config.context'
-                    -- keep command mode completion enabled when cursor is in a comment
-                    if vim.api.nvim_get_mode().mode == 'c' then
-                        return true
-                    else
-                        return not context.in_treesitter_capture("comment")
-                            and not context.in_syntax_group("Comment")
-                    end
-                end,
+                -- enabled = function()--不再注释中使用补全,但会导致telescope出现补全
+                --     -- disable completion in comments
+                --     local context = require 'cmp.config.context'
+                --     -- keep command mode completion enabled when cursor is in a comment
+                --     if vim.api.nvim_get_mode().mode == 'c' then
+                --         return true
+                --     else
+                --         return not context.in_treesitter_capture("comment")
+                --             and not context.in_syntax_group("Comment")
+                --     end
+                -- end,
                 view = {
                     entries = { name = 'custom', selection_order = 'near_cursor' }
                 },
@@ -41,10 +42,10 @@ return {
                     documentation = cmp.config.window.bordered(),
                 },
                 mapping = {
-                    ["<A-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<A-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<A-B>"] = cmp.mapping.scroll_docs(-4),
-                    ["<A-F>"] = cmp.mapping.scroll_docs(4),
+                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<Tab>"] = cmp.mapping.complete(),
                     ["<Esc>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -93,13 +94,27 @@ return {
                     -- { name = "emoji" },
                 }),
                 formatting = {
-                    format = function(_, item)
-                        local icons = require("config").icons.kinds
-                        if icons[item.kind] then
-                            item.kind = icons[item.kind] .. item.kind
-                        end
-                        return item
-                    end,
+                    -- format = function(_, item)
+                    --     local icons = require("config").icons.kinds
+                    --     if icons[item.kind] then
+                    --         item.kind = icons[item.kind] .. item.kind
+                    --     end
+                    --     return item
+                    -- end,
+                    --我修改的配置
+                    format = require('lspkind').cmp_format({
+                        mode = 'symbol',           -- show only symbol annotations
+                        maxwidth = 50,             -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                        ellipsis_char = '...',     -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+
+                        -- The function below will be called before any actual modifications from lspkind
+                        -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+                        -- before = function (entry, vim_item)
+                        --   ...
+                        --   return vim_item
+                        -- end
+
+                    })
                 },
                 experimental = {
                     ghost_text = {
