@@ -16,11 +16,11 @@ map("n", "<leader>Lz", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>Lm", "<cmd>Mason<cr>", { desc = "Mason" })
 map("n", "<S-Tab>", "<cmd>normal za<CR>", { desc = "Toggle code fold" })
 map({ "n", "v", "o" }, "U", "<C-r>")
--- map("i", "jk", "<Esc>")
--- map({ "n", "v", "o" }, "<S-j>", "5j")
--- map({ "n", "v", "o" }, "<S-k>", "5k")
--- map({ "n", "v", "o" }, "<S-h>", "5h")
--- map({ "n", "v", "o" }, "<S-l>", "5l")
+map("i", "jk", "<Esc>")
+map({ "n", "v", "o" }, "<S-j>", "5j")
+map({ "n", "v", "o" }, "<S-k>", "5k")
+map({ "n", "v", "o" }, "<S-h>", "5h")
+map({ "n", "v", "o" }, "<S-l>", "5l")
 -- map({ "n", "v", "o" }, "e", "$", { desc = "End of Line" })
 -- map({ "n", "v", "o" }, "E", "^", { desc = "Begin of Line" })
 --结束
@@ -293,7 +293,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "c",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-S-r>",
+        vim.api.nvim_buf_set_keymap(0, "n", "<F19>",
             "<ESC>:w<CR>:split<CR>:te gcc -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out % -g -I ./include/ -I .. -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
             { silent = true, noremap = true })
     end,
@@ -302,7 +302,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "cpp",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-S-r>",
+        vim.api.nvim_buf_set_keymap(0, "n", "<F19>",
             "<ESC>:w<CR>:split<CR>:te g++ -std=c++20 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out  % -g -I ./include/ -I .. -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time <CR>i",
             { silent = true, noremap = true })
     end,
@@ -314,8 +314,8 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "c",
     callback = function()
         -- -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-r>",
-            "<ESC>:w<CR>:split<CR>:te gcc  -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out % -g -I ./include/ -I ..  -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files//a.out<CR>i", --%:t:r
+        vim.api.nvim_buf_set_keymap(0, "n", "<F7>",
+            "<ESC>:w<CR>:split<CR>:te gcc  -std=c17 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out % -g -I ./include/ -I ..  -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files/%:t:r.out<CR>i", --%:t:r
             { silent = true, noremap = true }
         )
     end,
@@ -328,8 +328,8 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.api.nvim_buf_set_keymap(
             0,
             "n",
-            "<C-r>",
-            "<ESC>:w<CR>:split<CR>:te g++ -std=c++20 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out %  -g -I ./include/ -I ..  -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files/a.out<CR>i\n", --
+            "<F7>",
+            "<ESC>:w<CR>:split<CR>:te g++ -std=c++20 -Wshadow -Wall -o ~/Public/Bin_Files/%:t:r.out %  -g -I ./include/ -I ..  -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG && time ~/Public/Bin_Files/%:t:r.out<CR>i\n", --
             { silent = true, noremap = true }
         )
     end,
@@ -338,7 +338,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "python",
     callback = function()
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-r>",
+        vim.api.nvim_buf_set_keymap(0, "n", "<F7>",
 
             ":w<CR>:split<CR>:te  time python3 % <CR>i",
             { silent = true, noremap = true }
@@ -350,7 +350,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "java",
     callback = function()
-        vim.api.nvim_buf_set_keymap(0, "n", "<C-r>",
+        vim.api.nvim_buf_set_keymap(0, "n", "<F7>",
 
             ":w<CR>:split<CR>:te  time java % <CR>i",
             { silent = true, noremap = true }
